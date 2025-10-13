@@ -30,21 +30,19 @@ const DigitalTwinSection = () => {
   ];
 
   return (
-    <section id="digital-twin" className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-900 dark:via-blue-950 dark:to-purple-950 transition-colors duration-300">
+    <section id="digital-twin" className="py-24 bg-black">
       <div className="container mx-auto px-6">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl font-bold mb-6" data-testid="digital-twin-section-title">
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Digital Twin Technology
-            </span>
+          <h2 className="text-5xl md:text-6xl font-light mb-6 text-white tracking-tight" data-testid="digital-twin-section-title">
+            Digital Twin Technology
           </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-zinc-400 max-w-4xl mx-auto leading-relaxed font-light">
             Experience our interactive 3D Digital Twin showcasing industrial automation systems with real-time control and monitoring capabilities
           </p>
         </motion.div>
@@ -57,22 +55,22 @@ const DigitalTwinSection = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700/50 shadow-2xl">
-            <div className="mb-4">
-              <h3 className="text-2xl font-bold text-white mb-2">
+          <div className="relative bg-zinc-900/50 backdrop-blur-xl rounded-3xl p-8 border border-zinc-800/50">
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold text-white mb-2 tracking-tight">
                 Interactive Industrial Automation Demo
               </h3>
-              <p className="text-slate-300 text-sm">
+              <p className="text-zinc-400 text-sm font-light">
                 Click the control panel buttons to operate the robotic arms and conveyor system
               </p>
             </div>
             
             {/* Lazy-loaded 3D Component */}
             <Suspense fallback={
-              <div className="w-full h-96 flex items-center justify-center bg-slate-900 rounded-xl border border-slate-700">
-                <div className="text-center text-slate-300">
-                  <div className="w-12 h-12 border-4 border-blue-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p>Loading Digital Twin Experience...</p>
+              <div className="w-full h-96 flex items-center justify-center bg-zinc-950 rounded-2xl border border-zinc-800/50">
+                <div className="text-center text-zinc-400">
+                  <div className="w-12 h-12 border-4 border-neon-cyan border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="font-light">Loading Digital Twin Experience...</p>
                 </div>
               </div>
             }>
@@ -80,13 +78,13 @@ const DigitalTwinSection = () => {
             </Suspense>
 
             {/* Instructions */}
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-300">
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-zinc-400 font-light">
               <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-neon-pink rounded-full shadow-[0_0_8px_rgba(255,0,127,0.6)]"></div>
                 <span>Red Button: Toggle Robot Arms</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-neon-green rounded-full shadow-[0_0_8px_rgba(0,255,127,0.6)]"></div>
                 <span>Green Button: Toggle Conveyor Belt</span>
               </div>
             </div>
@@ -104,21 +102,21 @@ const DigitalTwinSection = () => {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="text-center p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300"
-              whileHover={{ y: -5, scale: 1.02 }}
+              className="text-center p-8 bg-zinc-900/50 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-zinc-700/50 transition-all duration-300"
+              whileHover={{ y: -4 }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
               data-testid={`digital-twin-feature-${index}`}
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full mb-4">
-                <feature.icon size={24} className="text-white" />
+              <div className="inline-flex items-center justify-center w-14 h-14 bg-zinc-800/80 border border-zinc-700/50 rounded-2xl mb-5">
+                <feature.icon size={24} className="text-neon-cyan" />
               </div>
-              <h3 className="text-lg font-semibold text-slate-800 dark:text-white mb-2">
+              <h3 className="text-lg font-medium text-white mb-3">
                 {feature.title}
               </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+              <p className="text-zinc-400 text-sm leading-relaxed font-light">
                 {feature.description}
               </p>
             </motion.div>
@@ -134,8 +132,8 @@ const DigitalTwinSection = () => {
           transition={{ delay: 0.6, duration: 0.8 }}
         >
           {/* Capabilities */}
-          <div className="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-lg border border-slate-200 dark:border-slate-700">
-            <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-6">
+          <div className="bg-zinc-900/50 backdrop-blur-xl rounded-3xl p-10 border border-zinc-800/50">
+            <h3 className="text-2xl font-semibold text-white mb-8 tracking-tight">
               Digital Twin Capabilities
             </h3>
             <ul className="space-y-4">
@@ -148,16 +146,16 @@ const DigitalTwinSection = () => {
                 'Virtual commissioning and testing'
               ].map((capability, index) => (
                 <li key={index} className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <span className="text-slate-600 dark:text-slate-400">{capability}</span>
+                  <div className="w-2 h-2 bg-neon-cyan rounded-full mt-2 flex-shrink-0 shadow-[0_0_6px_rgba(0,255,255,0.6)]"></div>
+                  <span className="text-zinc-400 font-light">{capability}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Technologies */}
-          <div className="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-lg border border-slate-200 dark:border-slate-700">
-            <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-6">
+          <div className="bg-zinc-900/50 backdrop-blur-xl rounded-3xl p-10 border border-zinc-800/50">
+            <h3 className="text-2xl font-semibold text-white mb-8 tracking-tight">
               Technologies Used
             </h3>
             <div className="grid grid-cols-2 gap-4">
@@ -169,11 +167,11 @@ const DigitalTwinSection = () => {
                 { name: 'WebGL', description: 'Graphics API' },
                 { name: 'IoT Integration', description: 'Live Data Sync' }
               ].map((tech, index) => (
-                <div key={index} className="text-center p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
-                  <div className="text-sm font-semibold text-slate-800 dark:text-white">
+                <div key={index} className="text-center p-4 bg-zinc-800/50 rounded-2xl border border-zinc-700/50">
+                  <div className="text-sm font-medium text-white">
                     {tech.name}
                   </div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400">
+                  <div className="text-xs text-zinc-500 font-light mt-1">
                     {tech.description}
                   </div>
                 </div>

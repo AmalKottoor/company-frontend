@@ -28,31 +28,31 @@ const ServiceCard = ({ service, isVisible }) => {
 
   return (
     <motion.div
-      className="group bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-2xl hover:border-blue-500/50 dark:hover:border-blue-400/50 transition-all duration-300"
-      whileHover={{ y: -8, scale: 1.02 }}
+      className="group relative bg-zinc-900/50 backdrop-blur-xl rounded-3xl border border-zinc-800/50 overflow-hidden hover:border-neon-cyan/30 transition-all duration-500"
+      whileHover={{ y: -4 }}
       layout
     >
-      <div className="p-6">
+      <div className="p-8">
         {/* Icon and Title */}
-        <div className="flex items-start space-x-4 mb-4">
+        <div className="flex items-start space-x-5 mb-6">
           <div className="flex-shrink-0">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-blue-500/50 transition-shadow">
-              <IconComponent size={24} className="text-white" />
+            <div className="w-14 h-14 bg-zinc-800/80 rounded-2xl flex items-center justify-center border border-zinc-700/50 group-hover:border-neon-cyan/50 group-hover:shadow-[0_0_20px_rgba(0,255,255,0.3)] transition-all duration-500">
+              <IconComponent size={26} className="text-neon-cyan group-hover:drop-shadow-[0_0_8px_rgba(0,255,255,0.8)] transition-all duration-500" />
             </div>
           </div>
           <div className="flex-1">
-            <h3 className="text-xl font-bold text-slate-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            <h3 className="text-xl font-semibold text-white tracking-tight leading-tight">
               {service.title}
             </h3>
           </div>
         </div>
 
         {/* Tools */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2 mb-5">
           {service.tools.map((tool, index) => (
             <span
               key={index}
-              className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-medium rounded-full shadow-sm"
+              className="px-3 py-1.5 bg-zinc-800/60 border border-zinc-700/50 text-zinc-300 text-xs font-medium rounded-full hover:border-neon-purple/50 hover:text-neon-purple transition-all duration-300"
             >
               {tool}
             </span>
@@ -60,17 +60,17 @@ const ServiceCard = ({ service, isVisible }) => {
         </div>
 
         {/* Short Description */}
-        <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
+        <p className="text-zinc-400 text-sm leading-relaxed mb-5 font-light">
           {service.short}
         </p>
 
         {/* Expand/Collapse Button */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors text-sm font-medium"
+          className="flex items-center space-x-2 text-neon-cyan hover:text-neon-blue transition-colors text-sm font-medium group/btn"
         >
           <span>{isExpanded ? 'Show Less' : 'Learn More'}</span>
-          {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          {isExpanded ? <ChevronUp size={16} className="group-hover/btn:translate-y-[-2px] transition-transform" /> : <ChevronDown size={16} className="group-hover/btn:translate-y-[2px] transition-transform" />}
         </button>
 
         {/* Expanded Content */}
@@ -83,8 +83,8 @@ const ServiceCard = ({ service, isVisible }) => {
               transition={{ duration: 0.3 }}
               className="overflow-hidden"
             >
-              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+              <div className="mt-5 pt-5 border-t border-zinc-800/50">
+                <p className="text-zinc-400 text-sm leading-relaxed font-light">
                   {service.long}
                 </p>
               </div>
@@ -93,8 +93,8 @@ const ServiceCard = ({ service, isVisible }) => {
         </AnimatePresence>
       </div>
 
-      {/* Gradient Border Effect */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" />
+      {/* Subtle Glow Effect on Hover */}
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-neon-cyan/5 via-neon-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
     </motion.div>
   );
 };

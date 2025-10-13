@@ -20,50 +20,48 @@ const ServicesSection = () => {
   );
 
   return (
-    <section id="services" className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-900 dark:via-blue-950 dark:to-purple-950 transition-colors duration-300">
+    <section id="services" className="py-24 bg-zinc-950">
       <div className="container mx-auto px-6">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6" data-testid="services-section-title">
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Core Competency Areas
-            </span>
+          <h2 className="text-5xl md:text-6xl font-light mb-6 tracking-tight text-white" data-testid="services-section-title">
+            Core Competency Areas
           </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed font-light">
             End-to-end industrial automation and digital transformation solutions—from electrical design and PLC programming to AI/ML analytics and immersive Digital Twin implementations
           </p>
         </motion.div>
 
         {/* Search Bar */}
         <motion.div
-          className="max-w-md mx-auto mb-12"
+          className="max-w-md mx-auto mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           <div className="relative">
-            <Search size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400" />
+            <Search size={18} className="absolute left-5 top-1/2 transform -translate-y-1/2 text-zinc-500" />
             <input
               type="text"
               placeholder="Search services or tools..."
-              className="w-full pl-12 pr-12 py-4 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-slate-800 dark:text-slate-200"
+              className="w-full pl-14 pr-14 py-4 bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 rounded-full focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 focus:border-neon-cyan/50 transition-all text-white placeholder-zinc-500"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               data-testid="services-search-input"
             />
             {searchTerm && (
               <button
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                className="absolute right-5 top-1/2 transform -translate-y-1/2 text-zinc-500 hover:text-neon-cyan transition-colors"
                 onClick={() => setSearchTerm('')}
                 data-testid="services-search-clear"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             )}
           </div>
@@ -97,12 +95,12 @@ const ServicesSection = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-slate-500 dark:text-slate-400"
+                className="text-zinc-500"
                 data-testid="services-no-results"
               >
-                <Search size={48} className="mx-auto mb-4 opacity-50" />
-                <h3 className="text-xl font-semibold mb-2">No services found</h3>
-                <p>Try adjusting your search terms or browse all services</p>
+                <Search size={48} className="mx-auto mb-4 opacity-30" />
+                <h3 className="text-xl font-medium mb-2 text-white">No services found</h3>
+                <p className="font-light">Try adjusting your search terms or browse all services</p>
               </motion.div>
             </div>
           )}
@@ -110,7 +108,7 @@ const ServicesSection = () => {
 
         {/* Stats */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-16 border-t border-slate-200 dark:border-slate-700"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 pt-20 border-t border-zinc-800/50"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -127,10 +125,10 @@ const ServicesSection = () => {
               className="text-center"
               data-testid={`services-stat-${index}`}
             >
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              <div className="text-4xl md:text-5xl font-light text-white mb-2">
                 {stat.number}
               </div>
-              <div className="text-slate-600 dark:text-slate-400 font-medium">
+              <div className="text-zinc-500 font-light">
                 {stat.label}
               </div>
             </div>

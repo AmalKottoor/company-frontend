@@ -17,30 +17,13 @@ const HeroSection = () => {
   ];
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-purple-900 dark:from-slate-800 dark:via-blue-900 dark:to-purple-800">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-blue-400/20 rounded-full"
-            animate={{
-              x: [0, 100, -50, 0],
-              y: [0, -100, 50, 0],
-              opacity: [0.2, 0.8, 0.2],
-            }}
-            transition={{
-              duration: 10 + i * 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
-      </div>
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
+      {/* Minimal Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-30" />
+      
+      {/* Subtle Glow Effects */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-cyan/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-purple/10 rounded-full blur-[120px]" />
 
       <div className="container mx-auto px-6 text-center relative z-10">
         <motion.div
@@ -49,14 +32,14 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
         >
           {/* Main Heading */}
-          <h1 className="text-6xl md:text-8xl font-bold mb-6" data-testid="hero-main-title">
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-7xl md:text-9xl font-light mb-8 tracking-tight" data-testid="hero-main-title">
+            <span className="text-white">
               OptiAutomata
             </span>
           </h1>
           
           <motion.p
-            className="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl text-zinc-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
@@ -67,7 +50,7 @@ const HeroSection = () => {
 
           {/* Feature Pills */}
           <motion.div
-            className="flex flex-wrap justify-center gap-4 mb-12"
+            className="flex flex-wrap justify-center gap-3 mb-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -75,27 +58,27 @@ const HeroSection = () => {
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20"
-                whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.15)' }}
+                className="flex items-center space-x-2 bg-zinc-900/50 backdrop-blur-xl rounded-full px-5 py-2.5 border border-zinc-800/50 hover:border-neon-cyan/30 transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
                 data-testid={`hero-feature-${index}`}
               >
-                <feature.icon size={18} className="text-blue-400" />
-                <span className="text-white text-sm font-medium">{feature.text}</span>
+                <feature.icon size={16} className="text-neon-cyan" />
+                <span className="text-zinc-300 text-sm font-medium">{feature.text}</span>
               </motion.div>
             ))}
           </motion.div>
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-20"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.8 }}
           >
             <motion.button
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
-              whileHover={{ scale: 1.05, y: -2 }}
+              className="px-10 py-4 bg-white text-black rounded-full font-medium text-base hover:bg-zinc-100 transition-all shadow-lg"
+              whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={scrollToServices}
               data-testid="hero-cta-services"
@@ -103,8 +86,8 @@ const HeroSection = () => {
               Explore Our Solutions
             </motion.button>
             <motion.button
-              className="px-8 py-4 bg-transparent border-2 border-white/30 text-white rounded-full font-semibold text-lg hover:bg-white/10 transition-all"
-              whileHover={{ scale: 1.05, y: -2 }}
+              className="px-10 py-4 bg-transparent border border-zinc-700 text-white rounded-full font-medium text-base hover:bg-zinc-900/50 hover:border-neon-cyan/50 transition-all"
+              whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
               data-testid="hero-cta-digital-twin"
@@ -116,16 +99,16 @@ const HeroSection = () => {
 
         {/* Scroll Indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
+          className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
           <button
             onClick={scrollToServices}
-            className="text-white/60 hover:text-white transition-colors"
+            className="text-zinc-600 hover:text-neon-cyan transition-colors"
             data-testid="hero-scroll-indicator"
           >
-            <ChevronDown size={32} />
+            <ChevronDown size={28} />
           </button>
         </motion.div>
       </div>

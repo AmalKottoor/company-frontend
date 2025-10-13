@@ -52,6 +52,13 @@ export default {
           '3': 'hsl(var(--chart-3))',
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))'
+        },
+        neon: {
+          cyan: 'hsl(var(--neon-cyan))',
+          purple: 'hsl(var(--neon-purple))',
+          pink: 'hsl(var(--neon-pink))',
+          blue: 'hsl(var(--neon-blue))',
+          green: 'hsl(var(--neon-green))'
         }
       },
       keyframes: {
