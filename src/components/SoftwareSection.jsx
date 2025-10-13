@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, X, ExternalLink } from 'lucide-react';
+import { Search, X, ExternalLink, Monitor, Pencil, Boxes, Database } from 'lucide-react';
 import softwaresData from '../config/softwares.json';
 
 const SoftwareSection = () => {
@@ -20,13 +20,13 @@ const SoftwareSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl font-bold mb-6 text-white" data-testid="software-section-title">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white" data-testid="software-section-title">
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               Software Competencies
             </span>
           </h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            We work with industry-leading software platforms to deliver comprehensive automation solutions
+            Expertise across industry-leading platforms—delivering integrated automation solutions with proven technologies
           </p>
         </motion.div>
 
@@ -143,44 +143,48 @@ const SoftwareSection = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          <h3 className="text-2xl font-bold text-white mb-8 text-center">
-            Core Competency Areas
+          <h3 className="text-3xl font-bold text-white mb-8 text-center">
+            Software Competency Areas
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                title: 'SCADA/HMI',
-                description: 'Ignition, Rockwell, Siemens platforms',
-                color: 'from-blue-500 to-cyan-500'
+                title: 'SCADA/HMI Development',
+                description: 'Ignition, Rockwell, Siemens TIA Portal',
+                color: 'from-blue-500 to-cyan-500',
+                icon: Monitor
               },
               {
-                title: 'Engineering Design',
-                description: 'AutoCAD, EPLAN electrical systems',
-                color: 'from-purple-500 to-pink-500'
+                title: 'Electrical Engineering',
+                description: 'AutoCAD, EPLAN electrical design systems',
+                color: 'from-purple-500 to-pink-500',
+                icon: Pencil
               },
               {
                 title: 'Simulation & Modeling',
-                description: 'AnyLogic, Unity 3D environments',
-                color: 'from-green-500 to-teal-500'
+                description: 'AnyLogic, Unity 3D virtual environments',
+                color: 'from-green-500 to-teal-500',
+                icon: Boxes
               },
               {
                 title: 'Data & Analytics',
-                description: 'Historians, LabVIEW, Dynamics 365',
-                color: 'from-orange-500 to-red-500'
+                description: 'Historians, LabVIEW, Dynamics 365 CRM',
+                color: 'from-orange-500 to-red-500',
+                icon: Database
               }
             ].map((area, index) => (
               <motion.div
                 key={index}
-                className="text-center p-6 bg-slate-800/50 rounded-xl border border-slate-700/50"
-                whileHover={{ scale: 1.05, y: -2 }}
+                className="text-center p-6 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50 hover:border-slate-600/50 transition-all"
+                whileHover={{ scale: 1.05, y: -5 }}
                 transition={{ duration: 0.2 }}
                 data-testid={`competency-area-${index}`}
               >
-                <div className={`inline-block p-3 rounded-full bg-gradient-to-r ${area.color} mb-4`}>
-                  <div className="w-6 h-6" />
+                <div className={`inline-block p-4 rounded-full bg-gradient-to-r ${area.color} mb-4 shadow-lg`}>
+                  <area.icon size={28} className="text-white" />
                 </div>
-                <h4 className="text-white font-semibold mb-2">{area.title}</h4>
-                <p className="text-slate-400 text-sm">{area.description}</p>
+                <h4 className="text-white font-semibold mb-2 text-lg">{area.title}</h4>
+                <p className="text-slate-400 text-sm leading-relaxed">{area.description}</p>
               </motion.div>
             ))}
           </div>

@@ -1,20 +1,18 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, Settings, Home, Briefcase, Code, Cpu } from 'lucide-react';
+import { Menu, X, Sun, Moon, Mail, Home, Briefcase, Code, Cpu } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
-import { useAdmin } from '../contexts/AdminContext';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  const { isAdmin } = useAdmin();
 
   const menuItems = [
     { id: 'home', label: 'Home', icon: Home, href: '#home' },
     { id: 'services', label: 'Services', icon: Briefcase, href: '#services' },
     { id: 'software', label: 'Software', icon: Code, href: '#software' },
     { id: 'digital-twin', label: 'Digital Twin', icon: Cpu, href: '#digital-twin' },
-    { id: 'admin', label: 'Admin', icon: Settings, href: '#admin' },
+    { id: 'contact', label: 'Contact Us', icon: Mail, href: '#contact' },
   ];
 
   const scrollToSection = (href) => {
@@ -48,23 +46,6 @@ const Navigation = () => {
       >
         {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
       </motion.button>
-
-      {/* Admin Panel Button */}
-      {isAdmin && (
-        <motion.a
-          href="#admin"
-          className="fixed top-6 right-20 z-50 p-3 bg-gradient-to-br from-green-500 to-teal-500 text-white rounded-full shadow-lg hover:shadow-xl transition-shadow"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToSection('#admin');
-          }}
-          data-testid="admin-panel-button"
-        >
-          <Settings size={24} />
-        </motion.a>
-      )}
 
       {/* Side Menu Overlay */}
       <AnimatePresence>

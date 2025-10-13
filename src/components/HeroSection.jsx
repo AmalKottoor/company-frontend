@@ -62,7 +62,7 @@ const HeroSection = () => {
             transition={{ delay: 0.3, duration: 0.8 }}
             data-testid="hero-subtitle"
           >
-            Industrial Automation Solutions Provider offering end-to-end engineering and digital transformation services
+            Leading Industrial Automation & Digital Transformation Partner—Delivering innovative engineering solutions from concept to commissioning
           </motion.p>
 
           {/* Feature Pills */}
@@ -100,16 +100,16 @@ const HeroSection = () => {
               onClick={scrollToServices}
               data-testid="hero-cta-services"
             >
-              Explore Services
+              Explore Our Solutions
             </motion.button>
             <motion.button
               className="px-8 py-4 bg-transparent border-2 border-white/30 text-white rounded-full font-semibold text-lg hover:bg-white/10 transition-all"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => document.querySelector('#digital-twin')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
               data-testid="hero-cta-digital-twin"
             >
-              View Digital Twin
+              Get In Touch
             </motion.button>
           </motion.div>
         </motion.div>

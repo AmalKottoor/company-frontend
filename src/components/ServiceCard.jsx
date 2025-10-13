@@ -1,30 +1,58 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Zap, Cpu, Database, Settings, RefreshCw, Brain, Wifi, Copy, Microchip, Building2, Eye, Activity, BarChart3, Box } from 'lucide-react';
+
+// Icon mapping
+const iconMap = {
+  'Zap': Zap,
+  'Cpu': Cpu,
+  'Database': Database,
+  'Settings': Settings,
+  'RefreshCw': RefreshCw,
+  'Brain': Brain,
+  'Wifi': Wifi,
+  'Copy': Copy,
+  'Microchip': Microchip,
+  'Building2': Building2,
+  'Eye': Eye,
+  'Activity': Activity,
+  'BarChart3': BarChart3,
+  'Box': Box
+};
 
 const ServiceCard = ({ service, isVisible }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const IconComponent = iconMap[service.icon] || Cpu;
 
   if (!isVisible) return null;
 
   return (
     <motion.div
-      className="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-xl transition-all duration-300"
-      whileHover={{ y: -5 }}
+      className="group bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-2xl hover:border-blue-500/50 dark:hover:border-blue-400/50 transition-all duration-300"
+      whileHover={{ y: -8, scale: 1.02 }}
       layout
     >
       <div className="p-6">
-        {/* Title */}
-        <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-3">
-          {service.title}
-        </h3>
+        {/* Icon and Title */}
+        <div className="flex items-start space-x-4 mb-4">
+          <div className="flex-shrink-0">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-blue-500/50 transition-shadow">
+              <IconComponent size={24} className="text-white" />
+            </div>
+          </div>
+          <div className="flex-1">
+            <h3 className="text-xl font-bold text-slate-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+              {service.title}
+            </h3>
+          </div>
+        </div>
 
         {/* Tools */}
         <div className="flex flex-wrap gap-2 mb-4">
           {service.tools.map((tool, index) => (
             <span
               key={index}
-              className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-medium rounded-full"
+              className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-medium rounded-full shadow-sm"
             >
               {tool}
             </span>
@@ -64,6 +92,9 @@ const ServiceCard = ({ service, isVisible }) => {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Gradient Border Effect */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" />
     </motion.div>
   );
 };

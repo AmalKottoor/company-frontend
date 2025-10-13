@@ -29,13 +29,13 @@ const ServicesSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl font-bold mb-6" data-testid="services-section-title">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6" data-testid="services-section-title">
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Our Services
+              Core Competency Areas
             </span>
           </h2>
           <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            Comprehensive industrial automation solutions from control system design to AI/ML analytics and Digital Twin implementations
+            End-to-end industrial automation and digital transformation solutions—from electrical design and PLC programming to AI/ML analytics and immersive Digital Twin implementations
           </p>
         </motion.div>
 

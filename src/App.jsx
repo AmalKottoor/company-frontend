@@ -5,7 +5,7 @@ import HeroSection from './components/HeroSection';
 import ServicesSection from './components/ServicesSection';
 import SoftwareSection from './components/SoftwareSection';
 import DigitalTwinSection from './components/DigitalTwinSection';
-import AdminPanel from './components/AdminPanel';
+import ContactSection from './components/ContactSection';
 
 function App() {
   return (
@@ -29,8 +29,8 @@ function App() {
             {/* Digital Twin Section */}
             <DigitalTwinSection />
             
-            {/* Admin Panel */}
-            <AdminPanel />
+            {/* Contact Section */}
+            <ContactSection />
           </main>
           
           {/* Footer */}
@@ -43,19 +43,19 @@ function App() {
                     OptiAutomata
                   </h3>
                   <p className="text-slate-400 leading-relaxed">
-                    Industrial Automation Solutions Provider offering end-to-end engineering and digital transformation services.
+                    Leading industrial automation and digital transformation partner—delivering innovative engineering solutions from concept to commissioning.
                   </p>
                 </div>
                 
                 {/* Services */}
                 <div>
-                  <h4 className="text-lg font-semibold mb-4">Core Services</h4>
+                  <h4 className="text-lg font-semibold mb-4">Core Competencies</h4>
                   <ul className="space-y-2 text-slate-400">
                     <li>PLC & SCADA Development</li>
-                    <li>Digital Twin Implementation</li>
-                    <li>AI/ML Analytics</li>
-                    <li>IoT System Design</li>
-                    <li>Industrial Vision Systems</li>
+                    <li>Digital Twin Technology</li>
+                    <li>AI/ML Predictive Analytics</li>
+                    <li>Industrial IoT Solutions</li>
+                    <li>Machine Vision Systems</li>
                   </ul>
                 </div>
                 
@@ -63,15 +63,17 @@ function App() {
                 <div>
                   <h4 className="text-lg font-semibold mb-4">Get In Touch</h4>
                   <div className="space-y-2 text-slate-400">
-                    <p>Ready to optimize your industrial processes?</p>
-                    <p className="text-blue-400 font-medium">contact@optiautomata.com</p>
-                    <p className="text-sm">© 2025 OptiAutomata. All rights reserved.</p>
+                    <p>Ready to transform your industrial operations?</p>
+                    <a href="mailto:amalkottooran01@gmail.com" className="text-blue-400 font-medium hover:text-blue-300 transition-colors block">
+                      amalkottooran01@gmail.com
+                    </a>
+                    <p className="text-sm pt-4">© 2025 OptiAutomata. All rights reserved.</p>
                   </div>
                 </div>
               </div>
               
               <div className="border-t border-slate-800 pt-8 mt-8 text-center text-slate-500">
-                <p>Built with React, Vite, Tailwind CSS 3, and Three.js for optimal performance</p>
+                <p>Powered by React, Vite, Tailwind CSS, and Three.js</p>
               </div>
             </div>
           </footer>
