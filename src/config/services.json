@@ -1,0 +1,102 @@
+{
+  "services": [
+    {
+      "id": "electrical-schema",
+      "title": "Electrical Schema Design",
+      "tools": ["AutoCAD", "EPLAN"],
+      "short": "Schematic and panel layout design — IEC/NEC compliant wiring diagrams, BOMs and terminal plans.",
+      "long": "Create detailed single-line and multi-line electrical schematics, panel layouts, wiring diagrams, BOM generation and terminal mapping using AutoCAD and EPLAN. Deliverables: DWG/EDX exports, CSV BOM, PLC I/O mapping."
+    },
+    {
+      "id": "plc-scada",
+      "title": "PLC & SCADA Software Design",
+      "tools": ["Ignition", "Rockwell", "Siemens"],
+      "short": "PLC programs, SCADA screens, alarming, historization and operator workflows.",
+      "long": "Design and develop PLC logic, HMI/SCADA screens, alarming strategies, and historian tag models. Implement best practices for safety interlocks, modular program design, secure remote access and version control."
+    },
+    {
+      "id": "database-schema",
+      "title": "Database Schema Design & Management",
+      "tools": ["SQL", "Time-series DBs", "Canary"],
+      "short": "Relational & time-series schema design for process and business data.",
+      "long": "Design normalized relational schemas and optimized time-series schemas for historians and MES integrations. Implement backup/retention, indexing, partitioning and ETL strategies to support analytics and reporting."
+    },
+    {
+      "id": "site-commissioning",
+      "title": "Site Commissioning & Services",
+      "tools": ["Field Testing", "Onsite Support"],
+      "short": "On-site commissioning, loop checks, FAT/SAT, and operator training.",
+      "long": "Provide pre-commissioning checks, FAT/SAT support, loop testing, site acceptance testing, and operator training. Deliver commissioning documentation and punch-list management."
+    },
+    {
+      "id": "migration",
+      "title": "Migration Projects",
+      "tools": ["Legacy -> Modern", "Data Migration"],
+      "short": "Legacy SCADA/PLC/Historian migrations with phased cutover planning.",
+      "long": "Plan and execute migrations of legacy control systems and historians to modern platforms with minimal downtime. Include data reconciliation, tag mapping, and rollback plans."
+    },
+    {
+      "id": "ai-ml",
+      "title": "AI/ML Analytics & Predictive Maintenance",
+      "tools": ["Python", "ML Ops"],
+      "short": "Predictive failure detection, anomaly detection and model deployment.",
+      "long": "From data ingestion to model deployment: feature engineering, time-series models, anomaly detection, and MLOps pipelines for predictive maintenance and process optimization. Integrate models with dashboards and edge inferencing."
+    },
+    {
+      "id": "iot",
+      "title": "IoT System Design",
+      "tools": ["Hive MQTT", "Edge Gateways"],
+      "short": "Edge-to-cloud architecture, device provisioning and secure MQTT pipelines.",
+      "long": "Design secure IoT architectures with edge gateways, secure MQTT (HiveMQ-compatible), device management, OTA updates and cloud integration for telemetry and device control."
+    },
+    {
+      "id": "digital-twin",
+      "title": "Digital Twin",
+      "tools": ["AnyLogic", "Unity", "3D/SIM"],
+      "short": "High-fidelity simulation and virtual replica for process optimization.",
+      "long": "Create synchronized digital twins for simulation, what-if analysis, and operator training. Integrate live process data to drive simulation and visualizations via 3D engines (Unity/Three.js/AnyLogic)."
+    },
+    {
+      "id": "embedded",
+      "title": "Embedded System Solutions",
+      "tools": ["Arduino", "Firmware"],
+      "short": "Custom embedded designs for sensors, gateways and controllers.",
+      "long": "Design and implement embedded firmware and hardware prototypes for sensing, control and edge compute. Provide PCB-level integration and production-ready firmware."
+    },
+    {
+      "id": "dynamics365",
+      "title": "Dynamics 365 CRM Development",
+      "tools": ["Dynamics 365"],
+      "short": "CRM customizations, integration with operations & Field Service.",
+      "long": "Customize Dynamics 365 for Field Service and Operations: asset management, work orders, technician dispatch and integration with operational data sources."
+    },
+    {
+      "id": "vision",
+      "title": "Small Scale Vision Systems",
+      "tools": ["OpenCV", "Embedded Cameras"],
+      "short": "Machine vision for inspections and guidance on small-batch lines.",
+      "long": "Design compact vision solutions for inspection, alignment and guidance using edge cameras, optimized models, and robust lighting and optics design."
+    },
+    {
+      "id": "labview",
+      "title": "LabVIEW Solutions",
+      "tools": ["NI LabVIEW"],
+      "short": "Test automation, data acquisition and custom instrumentation GUIs.",
+      "long": "Develop LabVIEW applications for automated testing, data acquisition, instrument control and reporting with modular VI design."
+    },
+    {
+      "id": "historian",
+      "title": "Historian Design",
+      "tools": ["Canary", "OSISoft"],
+      "short": "High-throughput historian architecture and retention strategies.",
+      "long": "Build historian tag models, retention/aggregation policies, and fast-query patterns for long-term storage and analytics."
+    },
+    {
+      "id": "3d-simulation",
+      "title": "3D Simulation",
+      "tools": ["Unity", "AnyLogic"],
+      "short": "3D process & logistics simulation for layout and flow analysis.",
+      "long": "Create interactive 3D simulations for process validation, training and layout optimization using Unity or AnyLogic. Support scenario playback and KPI visualization."
+    }
+  ]
+}
