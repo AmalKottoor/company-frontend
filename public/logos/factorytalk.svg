@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200">
+  <!-- Speech bubble circle -->
+  <circle cx="80" cy="80" r="55" fill="#0066B3"/>
+  
+  <!-- Speech bubble tail -->
+  <path d="M 60 120 L 50 140 L 80 125 Z" fill="#0066B3"/>
+  
+  <!-- FT text in bubble -->
+  <text x="80" y="95" font-family="Arial, sans-serif" font-size="45" fill="white" font-weight="bold" text-anchor="middle">FT</text>
+  
+  <!-- FactoryTalk text -->
+  <text x="160" y="85" font-family="Arial, sans-serif" font-size="48" fill="#0066B3" font-weight="400">Factory</text>
+  <text x="340" y="85" font-family="Arial, sans-serif" font-size="48" fill="#00A0DF" font-weight="400">Talk</text>
+  
+  <!-- by ROCKWELL AUTOMATION -->
+  <text x="160" y="120" font-family="Arial, sans-serif" font-size="16" fill="#666666" font-weight="400">by ROCKWELL AUTOMATION</text>
+</svg>

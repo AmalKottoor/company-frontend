@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 250" width="800" height="250">
+  <!-- Unity cube logo -->
+  <g transform="translate(20, 50)">
+    <!-- Left face (gray) -->
+    <path d="M 75 0 L 0 43.3 L 0 130 L 75 86.6 Z" fill="#8C8C8C"/>
+    <!-- Right face (black) -->
+    <path d="M 75 0 L 150 43.3 L 150 130 L 75 86.6 Z" fill="#1A1A1A"/>
+    <!-- Top face (light gray) -->
+    <path d="M 75 0 L 0 43.3 L 75 86.6 L 150 43.3 Z" fill="#B8B8B8"/>
+    <!-- Bottom left cutout -->
+    <path d="M 37.5 108.3 L 0 86.6 L 0 130 L 37.5 151.6 Z" fill="#6B6B6B"/>
+    <!-- Bottom right cutout -->
+    <path d="M 112.5 108.3 L 150 86.6 L 150 130 L 112.5 151.6 Z" fill="#0D0D0D"/>
+  </g>
+  
+  <!-- Unity text -->
+  <text x="220" y="155" font-family="Arial, sans-serif" font-size="120" fill="#1A1A1A" font-weight="600">Unity</text>
+</svg>

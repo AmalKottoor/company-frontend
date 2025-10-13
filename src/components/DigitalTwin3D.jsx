@@ -1,248 +1,367 @@
-import { Suspense, useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Box, Cylinder, Html, Text, Environment } from '@react-three/drei';
+import { Suspense, useState, useEffect, useCallback } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Box, Html, Text, Environment, Grid } from '@react-three/drei';
+import ConveyorSystem from './digital-twin/ConveyorSystem';
+import PickPlaceRobot from './digital-twin/PickPlaceRobot';
+import QualityInspection from './digital-twin/QualityInspection';
+import InventoryStorage from './digital-twin/InventoryStorage';
+import AGVDelivery from './digital-twin/AGVDelivery';
+import MetricsDashboard from './digital-twin/MetricsDashboard';
+import MasterControlPanel from './digital-twin/MasterControlPanel';
 
-// Industrial Robot Arm Component
-const RobotArm = ({ position = [0, 0, 0], isActive = false }) => {
-  const armRef = useRef();
-  const jointRef = useRef();
-  const clawRef = useRef();
+/**
+ * Production Plant Scene Component
+ * Integrated modular production plant with multiple stations
+ */
 
-  useFrame((state) => {
-    if (isActive && armRef.current && jointRef.current && clawRef.current) {
-      // Simulate robot movement
-      const time = state.clock.elapsedTime;
-      armRef.current.rotation.y = Math.sin(time * 0.5) * 0.5;
-      jointRef.current.rotation.z = Math.sin(time * 0.7) * 0.3;
-      clawRef.current.rotation.x = Math.sin(time * 1.2) * 0.2;
-    }
+const ProductionPlantScene = () => {
+  // System Status
+  const [systemStatus, setSystemStatus] = useState({
+    conveyor: false,
+    pickPlace: false,
+    qualityCheck: false,
+    inventory: false,
+    agv: false,
+    emergencyStop: false
   });
 
-  return (
-    <group position={position}>
-      {/* Base */}
-      <Cylinder ref={armRef} args={[0.5, 0.6, 0.3]} position={[0, 0.15, 0]}>
-        <meshStandardMaterial color={isActive ? "#3b82f6" : "#64748b"} />
-      </Cylinder>
-      
-      {/* Main Arm */}
-      <group ref={jointRef} position={[0, 0.5, 0]}>
-        <Box args={[0.2, 1.5, 0.2]} position={[0, 0.75, 0]}>
-          <meshStandardMaterial color={isActive ? "#10b981" : "#6b7280"} />
-        </Box>
+  // Production Metrics
+  const [metrics, setMetrics] = useState({
+    itemsProduced: 0,
+    itemsProcessed: 0,
+    storedItems: 0,
+    deliveriesCompleted: 0,
+    defects: 0,
+    uptime: 0,
+    downtime: 0
+  });
+
+  // Calculate OEE metrics
+  const [oeeMetrics, setOeeMetrics] = useState({
+    oee: 0,
+    availability: 0,
+    performance: 0,
+    quality: 0
+  });
+
+  // Update metrics based on system activity
+  useEffect(() => {
+    if (systemStatus.emergencyStop) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setMetrics(prev => {
+        const newMetrics = { ...prev };
         
-        {/* End Effector */}
-        <group ref={clawRef} position={[0, 1.5, 0]}>
-          <Box args={[0.3, 0.1, 0.1]}>
-            <meshStandardMaterial color={isActive ? "#f59e0b" : "#9ca3af"} />
-          </Box>
-          {/* Claw fingers */}
-          <Box args={[0.05, 0.2, 0.05]} position={[-0.1, -0.1, 0]}>
-            <meshStandardMaterial color="#ef4444" />
-          </Box>
-          <Box args={[0.05, 0.2, 0.05]} position={[0.1, -0.1, 0]}>
-            <meshStandardMaterial color="#ef4444" />
-          </Box>
-        </group>
-      </group>
-    </group>
-  );
-};
-
-// Conveyor Belt Component
-const ConveyorBelt = ({ position = [0, 0, 0], isRunning = false }) => {
-  const beltRef = useRef();
-  const packageRefs = useRef([]);
-
-  useFrame(() => {
-    if (isRunning && packageRefs.current) {
-      packageRefs.current.forEach((pkg) => {
-        if (pkg) {
-          pkg.position.x += 0.02;
-          if (pkg.position.x > 4) {
-            pkg.position.x = -4;
+        // Increment counters based on active systems
+        if (systemStatus.conveyor) {
+          newMetrics.itemsProduced += 1;
+        }
+        if (systemStatus.pickPlace) {
+          newMetrics.itemsProcessed += 1;
+        }
+        if (systemStatus.agv && systemStatus.inventory) {
+          if (Math.random() > 0.7) {
+            newMetrics.storedItems = Math.min(newMetrics.storedItems + 1, 48);
+            newMetrics.deliveriesCompleted += 1;
           }
         }
+        if (systemStatus.qualityCheck && Math.random() > 0.95) {
+          newMetrics.defects += 1;
+        }
+
+        return newMetrics;
       });
+
+      // Update uptime/downtime
+      const activeSystemsCount = Object.values(systemStatus).filter(Boolean).length;
+      setMetrics(prev => ({
+        ...prev,
+        uptime: prev.uptime + (activeSystemsCount > 0 ? 0.001 : 0),
+        downtime: prev.downtime + (activeSystemsCount === 0 ? 0.001 : 0)
+      }));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [systemStatus]);
+
+  // Calculate OEE
+  useEffect(() => {
+    const totalTime = metrics.uptime + metrics.downtime;
+    const availability = totalTime > 0 ? (metrics.uptime / totalTime) * 100 : 0;
+    
+    const idealCycleTime = 1; // items per second
+    const actualCycleTime = metrics.uptime > 0 ? metrics.itemsProduced / (metrics.uptime * 1000) : 0;
+    const performance = idealCycleTime > 0 ? Math.min((actualCycleTime / idealCycleTime) * 100, 100) : 0;
+    
+    const quality = metrics.itemsProduced > 0 
+      ? ((metrics.itemsProduced - metrics.defects) / metrics.itemsProduced) * 100 
+      : 100;
+    
+    const oee = (availability * performance * quality) / 10000;
+
+    setOeeMetrics({
+      oee: Math.min(oee, 100),
+      availability: Math.min(availability, 100),
+      performance: Math.min(performance, 100),
+      quality: Math.min(quality, 100)
+    });
+  }, [metrics]);
+
+  const handleSystemToggle = useCallback((system) => {
+    if (systemStatus.emergencyStop && system !== 'emergencyStop') {
+      return; // Can't toggle systems during emergency stop
     }
-  });
 
-  return (
-    <group position={position}>
-      {/* Belt Surface */}
-      <Box ref={beltRef} args={[8, 0.1, 1]} position={[0, 0, 0]}>
-        <meshStandardMaterial color="#2d3748" />
-      </Box>
-      
-      {/* Belt Rollers */}
-      <Cylinder args={[0.1, 0.1, 1]} position={[-4, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <meshStandardMaterial color="#4a5568" />
-      </Cylinder>
-      <Cylinder args={[0.1, 0.1, 1]} position={[4, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <meshStandardMaterial color="#4a5568" />
-      </Cylinder>
-
-      {/* Packages on belt */}
-      {[0, 1, 2].map((index) => (
-        <Box
-          key={index}
-          ref={el => packageRefs.current[index] = el}
-          args={[0.3, 0.3, 0.3]}
-          position={[-3 + index * 2, 0.2, 0]}
-        >
-          <meshStandardMaterial color={`hsl(${index * 120}, 70%, 50%)`} />
-        </Box>
-      ))}
-    </group>
-  );
-};
-
-// Control Panel Component
-const ControlPanel = ({ position = [0, 0, 0], onToggle }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <group position={position}>
-      {/* Panel Base */}
-      <Box args={[1.2, 1.5, 0.1]} position={[0, 0.75, 0]}>
-        <meshStandardMaterial color="#1f2937" />
-      </Box>
-      
-      {/* Screen */}
-      <Box args={[0.8, 0.6, 0.02]} position={[0, 1, 0.06]}>
-        <meshStandardMaterial color={isHovered ? "#10b981" : "#374151"} emissive={isHovered ? "#064e3b" : "#000000"} />
-      </Box>
-      
-      {/* Buttons */}
-      <Cylinder
-        args={[0.08, 0.08, 0.02]}
-        position={[-0.2, 0.3, 0.06]}
-        onClick={() => onToggle && onToggle('robot')}
-        onPointerEnter={() => setIsHovered(true)}
-        onPointerLeave={() => setIsHovered(false)}
-      >
-        <meshStandardMaterial color="#ef4444" emissive="#7f1d1d" />
-      </Cylinder>
-      
-      <Cylinder
-        args={[0.08, 0.08, 0.02]}
-        position={[0.2, 0.3, 0.06]}
-        onClick={() => onToggle && onToggle('conveyor')}
-        onPointerEnter={() => setIsHovered(true)}
-        onPointerLeave={() => setIsHovered(false)}
-      >
-        <meshStandardMaterial color="#10b981" emissive="#064e3b" />
-      </Cylinder>
-
-      {/* Labels */}
-      {isHovered && (
-        <Html position={[0, 1.8, 0]} center>
-          <div className="bg-black/80 text-white px-2 py-1 rounded text-xs whitespace-nowrap">
-            Click buttons to control systems
-          </div>
-        </Html>
-      )}
-    </group>
-  );
-};
-
-// Status Display Component
-const StatusDisplay = ({ robotActive, conveyorActive }) => {
-  return (
-    <Html position={[0, 3, 0]} center>
-      <div className="bg-slate-900/90 backdrop-blur-sm border border-slate-600 rounded-lg p-4 text-white min-w-64">
-        <h4 className="font-bold mb-3 text-center">System Status</h4>
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-sm">Robot Arm:</span>
-            <div className={`w-3 h-3 rounded-full ${robotActive ? 'bg-green-400' : 'bg-red-400'}`} />
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm">Conveyor Belt:</span>
-            <div className={`w-3 h-3 rounded-full ${conveyorActive ? 'bg-green-400' : 'bg-red-400'}`} />
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm">Production Rate:</span>
-            <span className="text-sm text-blue-400">{robotActive && conveyorActive ? '95%' : '0%'}</span>
-          </div>
-        </div>
-      </div>
-    </Html>
-  );
-};
-
-// Main 3D Scene Component
-const IndustrialScene = () => {
-  const [robotActive, setRobotActive] = useState(false);
-  const [conveyorActive, setConveyorActive] = useState(false);
-
-  const handleToggle = (system) => {
-    if (system === 'robot') {
-      setRobotActive(!robotActive);
-    } else if (system === 'conveyor') {
-      setConveyorActive(!conveyorActive);
+    if (system === 'all') {
+      const allActive = Object.values(systemStatus).every(v => v);
+      setSystemStatus({
+        conveyor: !allActive,
+        pickPlace: !allActive,
+        qualityCheck: !allActive,
+        inventory: !allActive,
+        agv: !allActive,
+        emergencyStop: false
+      });
+    } else {
+      setSystemStatus(prev => ({
+        ...prev,
+        [system]: !prev[system]
+      }));
     }
-  };
+  }, [systemStatus]);
+
+  const handleEmergencyStop = useCallback(() => {
+    setSystemStatus({
+      conveyor: false,
+      pickPlace: false,
+      qualityCheck: false,
+      inventory: false,
+      agv: false,
+      emergencyStop: !systemStatus.emergencyStop
+    });
+  }, [systemStatus.emergencyStop]);
+
+  const handleResetAll = useCallback(() => {
+    setSystemStatus({
+      conveyor: false,
+      pickPlace: false,
+      qualityCheck: false,
+      inventory: false,
+      agv: false,
+      emergencyStop: false
+    });
+    setMetrics({
+      itemsProduced: 0,
+      itemsProcessed: 0,
+      storedItems: 0,
+      deliveriesCompleted: 0,
+      defects: 0,
+      uptime: 0,
+      downtime: 0
+    });
+  }, []);
+
+  const handleItemReachEnd = useCallback((item) => {
+    // Item reached end of conveyor
+    console.log('Item reached end:', item);
+  }, []);
 
   return (
     <>
-      {/* Lighting */}
+      {/* Advanced Lighting Setup */}
       <ambientLight intensity={0.4} />
-      <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
-      <pointLight position={[-10, 10, -10]} intensity={0.5} />
+      <directionalLight 
+        position={[25, 35, 15]} 
+        intensity={1.5} 
+        castShadow
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+      />
+      <directionalLight position={[-25, 25, -15]} intensity={0.8} />
+      <pointLight position={[0, 20, 0]} intensity={0.5} color="#00ffff" />
       
       {/* Environment */}
       <Environment preset="warehouse" />
       
       {/* Factory Floor */}
-      <Box args={[20, 0.1, 15]} position={[0, -0.5, 0]}>
-        <meshStandardMaterial color="#718096" />
+      <Box args={[80, 0.4, 60]} position={[0, -0.2, 0]}>
+        <meshStandardMaterial 
+          color="#0a0a0a" 
+          metalness={0.4}
+          roughness={0.7}
+        />
       </Box>
       
-      {/* Robot Arms */}
-      <RobotArm position={[-3, 0, 2]} isActive={robotActive} />
-      <RobotArm position={[3, 0, 2]} isActive={robotActive} />
-      
-      {/* Conveyor Belt */}
-      <ConveyorBelt position={[0, 0, 0]} isRunning={conveyorActive} />
-      
-      {/* Control Panel */}
-      <ControlPanel position={[0, 0, -4]} onToggle={handleToggle} />
-      
+      {/* Floor Grid Lines */}
+      <Grid
+        args={[80, 60]}
+        position={[0, 0.01, 0]}
+        cellSize={2}
+        cellThickness={0.6}
+        cellColor="#00ffff"
+        sectionSize={10}
+        sectionThickness={1.2}
+        sectionColor="#a855f7"
+        fadeDistance={60}
+        fadeStrength={1}
+        infiniteGrid={false}
+      />
+
+      {/* Conveyor System */}
+      <ConveyorSystem 
+        position={[-10, 0, -10]} 
+        isRunning={systemStatus.conveyor}
+        speed={0.03}
+        onItemReachEnd={handleItemReachEnd}
+        itemsProduced={metrics.itemsProduced}
+      />
+
+      {/* Pick & Place Robot */}
+      <PickPlaceRobot 
+        position={[8, 0, -10]} 
+        isActive={systemStatus.pickPlace}
+        itemsProcessed={metrics.itemsProcessed}
+      />
+
+      {/* Quality Inspection Station */}
+      <QualityInspection 
+        position={[18, 0, -10]} 
+        isActive={systemStatus.qualityCheck}
+      />
+
+      {/* Inventory Storage */}
+      <InventoryStorage 
+        position={[15, 0, 8]} 
+        isActive={systemStatus.inventory}
+        storedItems={metrics.storedItems}
+        capacity={48}
+      />
+
+      {/* AGV Delivery System */}
+      <AGVDelivery 
+        position={[0, 0, 0]} 
+        isActive={systemStatus.agv}
+        deliveriesCompleted={metrics.deliveriesCompleted}
+      />
+
+      {/* Master Control Panel */}
+      <MasterControlPanel 
+        position={[-20, 0, 18]} 
+        systemStatus={systemStatus}
+        onSystemToggle={handleSystemToggle}
+        onEmergencyStop={handleEmergencyStop}
+        onResetAll={handleResetAll}
+      />
+
+      {/* Metrics Dashboard */}
+      <MetricsDashboard 
+        position={[20, 0, 18]} 
+        metrics={{
+          ...oeeMetrics,
+          itemsProduced: metrics.itemsProduced,
+          itemsProcessed: metrics.itemsProcessed,
+          defects: metrics.defects,
+          uptime: parseFloat(metrics.uptime.toFixed(2)),
+          downtime: parseFloat(metrics.downtime.toFixed(2))
+        }}
+      />
+
       {/* Safety Barriers */}
-      {[-6, 6].map((x, index) => (
-        <Box key={index} args={[0.1, 2, 8]} position={[x, 1, 0]}>
-          <meshStandardMaterial color="#fbbf24" transparent opacity={0.7} />
+      {[-35, 35].map((x, index) => (
+        <Box key={`barrier-x-${index}`} args={[0.2, 3, 60]} position={[x, 1.5, 0]}>
+          <meshStandardMaterial 
+            color="#fbbf24" 
+            metalness={0.7}
+            roughness={0.3}
+            transparent 
+            opacity={0.5}
+            emissive="#fbbf24"
+            emissiveIntensity={0.3}
+          />
         </Box>
       ))}
-      
-      {/* Overhead Structure */}
-      <Box args={[12, 0.2, 1]} position={[0, 4, 0]}>
-        <meshStandardMaterial color="#4a5568" />
-      </Box>
-      
-      {/* Status Display */}
-      <StatusDisplay robotActive={robotActive} conveyorActive={conveyorActive} />
-      
-      {/* Title */}
+      {[-25, 25].map((z, index) => (
+        <Box key={`barrier-z-${index}`} args={[80, 3, 0.2]} position={[0, 1.5, z]}>
+          <meshStandardMaterial 
+            color="#fbbf24" 
+            metalness={0.7}
+            roughness={0.3}
+            transparent 
+            opacity={0.5}
+            emissive="#fbbf24"
+            emissiveIntensity={0.3}
+          />
+        </Box>
+      ))}
+
+      {/* Overhead Lighting Rigs */}
+      {[-20, -10, 0, 10, 20].map((x, index) => (
+        <group key={`light-rig-${index}`} position={[x, 10, 0]}>
+          <Box args={[2.5, 0.4, 50]}>
+            <meshStandardMaterial 
+              color="#374151" 
+              metalness={0.8}
+              roughness={0.2}
+            />
+          </Box>
+          {/* Light Fixtures */}
+          {[-20, -10, 0, 10, 20].map((z, lightIndex) => (
+            <group key={`light-${lightIndex}`} position={[0, -0.6, z]}>
+              <Box args={[1, 0.4, 1]}>
+                <meshStandardMaterial 
+                  color="#1f2937"
+                  metalness={0.7}
+                  roughness={0.3}
+                />
+              </Box>
+              <pointLight
+                position={[0, -0.4, 0]}
+                intensity={0.6}
+                distance={12}
+                color="#ffffff"
+              />
+            </group>
+          ))}
+        </group>
+      ))}
+
+      {/* Plant Title */}
       <Text
-        position={[0, 5, -2]}
-        fontSize={0.5}
-        color="#ffffff"
+        position={[0, 12, -25]}
+        fontSize={1.5}
+        color="#00ffff"
+        anchorX="center"
+        anchorY="middle"
+        outlineWidth={0.08}
+        outlineColor="#000000"
+      >
+        Mid-Scale Production Plant
+      </Text>
+
+      <Text
+        position={[0, 10, -25]}
+        fontSize={0.6}
+        color="#a855f7"
         anchorX="center"
         anchorY="middle"
       >
-        Industrial Automation Digital Twin
+        Digital Twin Simulation System
       </Text>
       
-      {/* Controls */}
+      {/* Camera Controls */}
       <OrbitControls
         enablePan={true}
         enableZoom={true}
         enableRotate={true}
         minDistance={5}
-        maxDistance={20}
-        maxPolarAngle={Math.PI / 2}
+        maxDistance={80}
+        maxPolarAngle={Math.PI / 2.1}
+        minPolarAngle={Math.PI / 6}
+        target={[0, 3, 0]}
+        enableDamping={true}
+        dampingFactor={0.05}
       />
     </>
   );
@@ -251,9 +370,9 @@ const IndustrialScene = () => {
 // Loading Component
 const SceneLoader = () => (
   <Html center>
-    <div className="flex items-center space-x-2 bg-slate-900/90 backdrop-blur-sm border border-slate-600 rounded-lg p-4 text-white">
-      <div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
-      <span>Loading Digital Twin...</span>
+    <div className="flex items-center space-x-3 bg-zinc-900/95 backdrop-blur-xl border border-zinc-700 rounded-2xl p-5 text-white">
+      <div className="w-8 h-8 border-3 border-neon-cyan border-t-transparent rounded-full animate-spin"></div>
+      <span className="font-medium">Loading Production Plant...</span>
     </div>
   </Html>
 );
@@ -263,31 +382,37 @@ const DigitalTwin3D = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => setIsLoaded(true), 1000);
+    // Simulate loading time for assets
+    const timer = setTimeout(() => setIsLoaded(true), 1500);
     return () => clearTimeout(timer);
   }, []);
 
   if (!isLoaded) {
     return (
-      <div className="w-full h-96 flex items-center justify-center bg-slate-900 rounded-xl">
-        <div className="flex items-center space-x-2 text-white">
-          <div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
-          <span>Initializing Digital Twin...</span>
+      <div className="w-full h-[600px] flex items-center justify-center bg-zinc-950 rounded-3xl border border-zinc-800/50">
+        <div className="flex flex-col items-center space-y-4 text-white">
+          <div className="w-12 h-12 border-4 border-neon-cyan border-t-transparent rounded-full animate-spin"></div>
+          <span className="text-lg font-medium">Initializing Production Plant...</span>
+          <span className="text-sm text-zinc-500 font-light">Loading 3D Assets & Systems</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full h-96 bg-slate-900 rounded-xl overflow-hidden border border-slate-700" data-testid="digital-twin-canvas">
+    <div className="w-full h-[700px] bg-zinc-950 rounded-3xl overflow-hidden border border-zinc-800/50 shadow-2xl" data-testid="digital-twin-canvas">
       <Canvas
-        camera={{ position: [8, 6, 8], fov: 60 }}
+        camera={{ position: [35, 20, 35], fov: 55 }}
         shadows
-        gl={{ antialias: true, alpha: false }}
+        gl={{ 
+          antialias: true, 
+          alpha: false,
+          powerPreference: "high-performance",
+          preserveDrawingBuffer: true
+        }}
       >
         <Suspense fallback={<SceneLoader />}>
-          <IndustrialScene />
+          <ProductionPlantScene />
         </Suspense>
       </Canvas>
     </div>

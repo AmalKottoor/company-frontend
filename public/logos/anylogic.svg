@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 300" width="1024" height="300">
+  <!-- Blue A symbol -->
+  <path d="M50 50 L180 50 L230 150 L180 250 L50 250 L100 150 Z" fill="#1E9FD8"/>
+  <path d="M230 150 L280 150 L230 250 Z" fill="#1E9FD8"/>
+  
+  <!-- anylogic text -->
+  <text x="320" y="180" font-family="Arial, sans-serif" font-size="120" fill="#4A4A4A" font-weight="400">anylogic</text>
+  
+  <!-- Registered trademark -->
+  <circle cx="980" cy="80" r="25" fill="none" stroke="#4A4A4A" stroke-width="3"/>
+  <text x="968" y="92" font-family="Arial, sans-serif" font-size="28" fill="#4A4A4A" font-weight="bold">R</text>
+</svg>

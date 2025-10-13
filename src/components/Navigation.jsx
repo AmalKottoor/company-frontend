@@ -69,7 +69,7 @@ const Navigation = () => {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               data-testid="side-navigation-menu"
             >
-              <div className="p-8">
+              <div className="p-8 pt-24">
                 {/* Logo */}
                 <div className="mb-12">
                   <h1 className="text-2xl font-semibold text-white tracking-tight">

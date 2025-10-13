@@ -1,16 +1,16 @@
 {
   "softwares": [
-    {"id":"ignition","name":"Ignition (Inductive Automation)","logo":"https://cdn.worldvectorlogo.com/logos/ignition-1.svg"},
-    {"id":"rockwell","name":"Rockwell Automation (Studio 5000)","logo":"https://logos-world.net/wp-content/uploads/2020/12/Rockwell-Automation-Logo.png"},
-    {"id":"siemens","name":"Siemens (TIA Portal)","logo":"https://logos-world.net/wp-content/uploads/2020/11/Siemens-Logo.png"},
-    {"id":"canary","name":"Canary Historian","logo":"https://www.canarylabs.com/wp-content/uploads/2019/06/canary-logo-horizontal.svg"},
+    {"id":"ignition","name":"Ignition (Inductive Automation)","logo":"/logos/ignition.svg"},
+    {"id":"rockwell","name":"Rockwell Automation Software Suite","logo":"/logos/factorytalk.svg"},
+    {"id":"siemens","name":"Siemens Software Suite","logo":"https://logos-world.net/wp-content/uploads/2020/11/Siemens-Logo.png"},
+    {"id":"canary","name":"Canary Historian","logo":"/logos/canary.svg"},
     {"id":"hivemq","name":"HiveMQ / MQTT","logo":"https://www.hivemq.com/img/svg/hivemq-bee.svg"},
-    {"id":"labview","name":"NI LabVIEW","logo":"https://logos-world.net/wp-content/uploads/2021/02/LabVIEW-Logo.png"},
-    {"id":"autocad","name":"AutoCAD","logo":"https://logos-world.net/wp-content/uploads/2020/12/Autodesk-AutoCAD-Logo.png"},
-    {"id":"eplan","name":"EPLAN","logo":"https://www.eplan.com/fileadmin/content/company/press/logos/eplan-logo.svg"},
-    {"id":"anylogic","name":"AnyLogic","logo":"https://www.anylogic.com/upload/al_logo.svg"},
-    {"id":"unity","name":"Unity","logo":"https://logos-world.net/wp-content/uploads/2021/08/Unity-Logo.png"},
-    {"id":"arduino","name":"Arduino","logo":"https://logos-world.net/wp-content/uploads/2020/06/Arduino-Logo.png"},
-    {"id":"dynamics","name":"Dynamics 365","logo":"https://logos-world.net/wp-content/uploads/2021/02/Microsoft-Dynamics-365-Logo.png"}
+    {"id":"labview","name":"NI LabVIEW","logo":"/logos/labview.svg"},
+    {"id":"autocad","name":"AutoCAD","logo":"/logos/autocad.svg"},
+    {"id":"eplan","name":"EPLAN","logo":"/logos/eplan.svg"},
+    {"id":"anylogic","name":"AnyLogic","logo":"/logos/anylogic.svg"},
+    {"id":"unity","name":"Unity","logo":"/logos/unity.svg"},
+    {"id":"arduino","name":"Arduino","logo":"/logos/arduino.svg"},
+    {"id":"dynamics","name":"Dynamics 365","logo":"/logos/dynamics365.svg"}
   ]
 }
