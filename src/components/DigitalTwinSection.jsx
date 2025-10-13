@@ -67,10 +67,11 @@ const DigitalTwinSection = () => {
             
             {/* Lazy-loaded 3D Component */}
             <Suspense fallback={
-              <div className="w-full h-96 flex items-center justify-center bg-zinc-950 rounded-2xl border border-zinc-800/50">
-                <div className="text-center text-zinc-400">
+              <div className="w-full h-[400px] md:h-96 flex items-center justify-center bg-zinc-950 rounded-2xl border border-zinc-800/50">
+                <div className="text-center text-zinc-400 px-4">
                   <div className="w-12 h-12 border-4 border-neon-cyan border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p className="font-light">Loading Digital Twin Experience...</p>
+                  <p className="font-light text-sm md:text-base">Loading Digital Twin Experience...</p>
+                  <p className="text-xs text-zinc-600 mt-2">This may take a moment on mobile devices</p>
                 </div>
               </div>
             }>

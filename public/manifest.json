@@ -1,0 +1,20 @@
+{
+  "name": "OptiAutomata - Industrial Automation Solutions",
+  "short_name": "OptiAutomata",
+  "description": "Leading industrial automation solutions provider specializing in PLC, SCADA, Digital Twin, and IoT technologies",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00ffff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "lang": "en-US"
+}

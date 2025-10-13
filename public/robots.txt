@@ -1,0 +1,11 @@
+# robots.txt for OptiAutomata
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://optiautomata.com/sitemap.xml
+
+# Crawl-delay for bots
+Crawl-delay: 1

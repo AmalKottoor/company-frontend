@@ -1,11 +1,24 @@
+import { lazy, Suspense } from 'react';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AdminProvider } from './contexts/AdminContext';
 import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
-import ServicesSection from './components/ServicesSection';
-import SoftwareSection from './components/SoftwareSection';
-import DigitalTwinSection from './components/DigitalTwinSection';
-import ContactSection from './components/ContactSection';
+
+// Lazy load heavy components for better initial load performance
+const ServicesSection = lazy(() => import('./components/ServicesSection'));
+const SoftwareSection = lazy(() => import('./components/SoftwareSection'));
+const DigitalTwinSection = lazy(() => import('./components/DigitalTwinSection'));
+const ContactSection = lazy(() => import('./components/ContactSection'));
+
+// Loading fallback component
+const SectionLoader = () => (
+  <div className="w-full py-24 flex items-center justify-center bg-black">
+    <div className="text-center">
+      <div className="w-8 h-8 border-3 border-neon-cyan border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+      <p className="text-zinc-500 text-sm font-light">Loading...</p>
+    </div>
+  </div>
+);
 
 function App() {
   return (
@@ -17,20 +30,29 @@ function App() {
           
           {/* Main Content */}
           <main>
-            {/* Hero Section */}
+            {/* Hero Section - Load immediately */}
             <HeroSection />
             
-            {/* Services Section */}
-            <ServicesSection />
+            {/* Lazy-loaded sections with Suspense */}
+            <Suspense fallback={<SectionLoader />}>
+              {/* Services Section */}
+              <ServicesSection />
+            </Suspense>
             
-            {/* Software Competencies Section */}
-            <SoftwareSection />
+            <Suspense fallback={<SectionLoader />}>
+              {/* Software Competencies Section */}
+              <SoftwareSection />
+            </Suspense>
             
-            {/* Digital Twin Section */}
-            <DigitalTwinSection />
+            <Suspense fallback={<SectionLoader />}>
+              {/* Digital Twin Section */}
+              <DigitalTwinSection />
+            </Suspense>
             
-            {/* Contact Section */}
-            <ContactSection />
+            <Suspense fallback={<SectionLoader />}>
+              {/* Contact Section */}
+              <ContactSection />
+            </Suspense>
           </main>
           
           {/* Footer */}

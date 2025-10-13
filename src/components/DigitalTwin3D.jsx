@@ -1,4 +1,4 @@
-import { Suspense, useState, useEffect, useCallback } from 'react';
+import { Suspense, useState, useEffect, useCallback, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Box, Html, Text, Environment, Grid } from '@react-three/drei';
 import ConveyorSystem from './digital-twin/ConveyorSystem';
@@ -9,12 +9,20 @@ import AGVDelivery from './digital-twin/AGVDelivery';
 import MetricsDashboard from './digital-twin/MetricsDashboard';
 import MasterControlPanel from './digital-twin/MasterControlPanel';
 
+// Detect if device is mobile for performance optimization
+const isMobile = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+};
+
 /**
  * Production Plant Scene Component
  * Integrated modular production plant with multiple stations
  */
 
 const ProductionPlantScene = () => {
+  // Detect mobile device
+  const mobile = useMemo(() => isMobile(), []);
+  
   // System Status
   const [systemStatus, setSystemStatus] = useState({
     conveyor: false,
@@ -170,17 +178,17 @@ const ProductionPlantScene = () => {
 
   return (
     <>
-      {/* Advanced Lighting Setup */}
-      <ambientLight intensity={0.4} />
+      {/* Advanced Lighting Setup - Optimized for mobile */}
+      <ambientLight intensity={mobile ? 0.5 : 0.4} />
       <directionalLight 
         position={[25, 35, 15]} 
-        intensity={1.5} 
-        castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
+        intensity={mobile ? 1.2 : 1.5} 
+        castShadow={!mobile}
+        shadow-mapSize-width={mobile ? 512 : 2048}
+        shadow-mapSize-height={mobile ? 512 : 2048}
       />
-      <directionalLight position={[-25, 25, -15]} intensity={0.8} />
-      <pointLight position={[0, 20, 0]} intensity={0.5} color="#00ffff" />
+      {!mobile && <directionalLight position={[-25, 25, -15]} intensity={0.8} />}
+      {!mobile && <pointLight position={[0, 20, 0]} intensity={0.5} color="#00ffff" />}
       
       {/* Environment */}
       <Environment preset="warehouse" />
@@ -296,8 +304,8 @@ const ProductionPlantScene = () => {
         </Box>
       ))}
 
-      {/* Overhead Lighting Rigs */}
-      {[-20, -10, 0, 10, 20].map((x, index) => (
+      {/* Overhead Lighting Rigs - Reduced for mobile */}
+      {(mobile ? [-10, 10] : [-20, -10, 0, 10, 20]).map((x, index) => (
         <group key={`light-rig-${index}`} position={[x, 10, 0]}>
           <Box args={[2.5, 0.4, 50]}>
             <meshStandardMaterial 
@@ -306,8 +314,8 @@ const ProductionPlantScene = () => {
               roughness={0.2}
             />
           </Box>
-          {/* Light Fixtures */}
-          {[-20, -10, 0, 10, 20].map((z, lightIndex) => (
+          {/* Light Fixtures - Reduced for mobile */}
+          {(mobile ? [0] : [-20, -10, 0, 10, 20]).map((z, lightIndex) => (
             <group key={`light-${lightIndex}`} position={[0, -0.6, z]}>
               <Box args={[1, 0.4, 1]}>
                 <meshStandardMaterial 
@@ -316,12 +324,14 @@ const ProductionPlantScene = () => {
                   roughness={0.3}
                 />
               </Box>
-              <pointLight
-                position={[0, -0.4, 0]}
-                intensity={0.6}
-                distance={12}
-                color="#ffffff"
-              />
+              {!mobile && (
+                <pointLight
+                  position={[0, -0.4, 0]}
+                  intensity={0.6}
+                  distance={12}
+                  color="#ffffff"
+                />
+              )}
             </group>
           ))}
         </group>
@@ -350,18 +360,21 @@ const ProductionPlantScene = () => {
         Digital Twin Simulation System
       </Text>
       
-      {/* Camera Controls */}
+      {/* Camera Controls - Optimized for mobile */}
       <OrbitControls
-        enablePan={true}
+        enablePan={!mobile}
         enableZoom={true}
         enableRotate={true}
-        minDistance={5}
-        maxDistance={80}
+        minDistance={mobile ? 10 : 5}
+        maxDistance={mobile ? 60 : 80}
         maxPolarAngle={Math.PI / 2.1}
         minPolarAngle={Math.PI / 6}
         target={[0, 3, 0]}
-        enableDamping={true}
-        dampingFactor={0.05}
+        enableDamping={!mobile}
+        dampingFactor={mobile ? 0.1 : 0.05}
+        rotateSpeed={mobile ? 0.5 : 1}
+        zoomSpeed={mobile ? 0.5 : 1}
+        makeDefault
       />
     </>
   );
@@ -380,6 +393,7 @@ const SceneLoader = () => (
 // Main Digital Twin Component
 const DigitalTwin3D = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const mobile = useMemo(() => isMobile(), []);
 
   useEffect(() => {
     // Simulate loading time for assets
@@ -398,18 +412,23 @@ const DigitalTwin3D = () => {
       </div>
     );
   }
-
+  
   return (
-    <div className="w-full h-[700px] bg-zinc-950 rounded-3xl overflow-hidden border border-zinc-800/50 shadow-2xl" data-testid="digital-twin-canvas">
+    <div className={`w-full ${mobile ? 'h-[400px]' : 'h-[700px]'} bg-zinc-950 rounded-3xl overflow-hidden border border-zinc-800/50 shadow-2xl`} data-testid="digital-twin-canvas">
       <Canvas
-        camera={{ position: [35, 20, 35], fov: 55 }}
-        shadows
+        camera={{ position: mobile ? [40, 25, 40] : [35, 20, 35], fov: mobile ? 60 : 55 }}
+        shadows={!mobile}
+        dpr={mobile ? [1, 1.5] : [1, 2]}
+        performance={{ min: 0.5 }}
         gl={{ 
-          antialias: true, 
+          antialias: !mobile,
           alpha: false,
           powerPreference: "high-performance",
-          preserveDrawingBuffer: true
+          preserveDrawingBuffer: false,
+          stencil: false,
+          depth: true
         }}
+        frameloop={mobile ? "demand" : "always"}
       >
         <Suspense fallback={<SceneLoader />}>
           <ProductionPlantScene />
