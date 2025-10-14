@@ -1,4 +1,4 @@
-import { Suspense, useState, useEffect, useCallback, useMemo } from 'react';
+import { Suspense, useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Box, Html, Text, Environment, Grid, Sky } from '@react-three/drei';
 import * as THREE from 'three';
@@ -14,6 +14,9 @@ import StorageTank from './digital-twin/StorageTank';
 import ProductionBuilding from './digital-twin/ProductionBuilding';
 import ControlRoom from './digital-twin/ControlRoom';
 import MonitoringRoom from './digital-twin/MonitoringRoom';
+import InteractiveComponent from './digital-twin/InteractiveComponent';
+import CameraPresets from './digital-twin/CameraPresets';
+import ComponentSelector from './digital-twin/ComponentSelector';
 
 // Device detection utility
 const isMobile = () => {
@@ -24,11 +27,16 @@ const isMobile = () => {
  * Advanced Production Plant Scene Component
  * Large-scale industrial facility with comprehensive equipment
  */
-const AdvancedProductionPlantScene = () => {
+const AdvancedProductionPlantScene = ({ 
+  controlsRef, 
+  selectedComponent, 
+  setSelectedComponent,
+  setComponentList 
+}) => {
   const mobile = useMemo(() => isMobile(), []);
   
   // Control Mode
-  const [controlMode, setControlMode] = useState('auto'); // 'auto' or 'manual'
+  const [controlMode, setControlMode] = useState('auto'); // 'auto' or 'manual';
   
   // System Status
   const [systemStatus, setSystemStatus] = useState({
@@ -43,6 +51,30 @@ const AdvancedProductionPlantScene = () => {
     tanks: false,
     emergencyStop: false
   });
+
+  // Component List for selector
+  const componentListData = useMemo(() => [
+    { name: 'Conveyor System', type: 'Production Line', category: 'production', status: systemStatus.conveyor ? 'Operational' : 'Stopped', icon: '🔄' },
+    { name: 'Pick & Place Robot', type: 'Robotic Arm', category: 'production', status: systemStatus.pickPlace ? 'Operational' : 'Stopped', icon: '🤖' },
+    { name: 'Quality Inspection', type: 'Vision System', category: 'production', status: systemStatus.qualityCheck ? 'Operational' : 'Stopped', icon: '🔍' },
+    { name: 'Inventory Storage', type: 'Warehouse', category: 'storage', status: systemStatus.inventory ? 'Operational' : 'Stopped', icon: '📦' },
+    { name: 'AGV Delivery', type: 'Automated Vehicle', category: 'production', status: systemStatus.agv ? 'Operational' : 'Stopped', icon: '🚛' },
+    { name: 'Grain Silo', type: 'Storage Silo', category: 'storage', status: systemStatus.silos ? 'Operational' : 'Stopped', icon: '🏗️' },
+    { name: 'Powder Silo', type: 'Storage Silo', category: 'storage', status: systemStatus.silos ? 'Operational' : 'Stopped', icon: '🏗️' },
+    { name: 'Pellets Silo', type: 'Storage Silo', category: 'storage', status: systemStatus.silos ? 'Operational' : 'Stopped', icon: '🏗️' },
+    { name: 'Industrial Boiler', type: 'Steam Generator', category: 'utilities', status: systemStatus.boiler ? 'Operational' : 'Stopped', icon: '🔥' },
+    { name: 'Cooling Tower', type: 'Heat Exchanger', category: 'utilities', status: systemStatus.cooling ? 'Operational' : 'Stopped', icon: '❄️' },
+    { name: 'Water Tank', type: 'Storage Tank', category: 'storage', status: systemStatus.tanks ? 'Operational' : 'Stopped', icon: '🛢️' },
+    { name: 'Chemical Tank', type: 'Storage Tank', category: 'storage', status: systemStatus.tanks ? 'Operational' : 'Stopped', icon: '🛢️' },
+    { name: 'Oil Tank', type: 'Storage Tank', category: 'storage', status: systemStatus.tanks ? 'Operational' : 'Stopped', icon: '🛢️' },
+    { name: 'Control Room', type: 'Operations Center', category: 'control', status: 'Operational', icon: '🎛️' },
+    { name: 'Monitoring Room', type: 'Analytics Center', category: 'control', status: 'Operational', icon: '📊' },
+  ], [systemStatus]);
+
+  // Update parent component list
+  useEffect(() => {
+    setComponentList?.(componentListData);
+  }, [componentListData, setComponentList]);
 
   // Production Metrics (Extended)
   const [metrics, setMetrics] = useState({
@@ -321,26 +353,58 @@ const AdvancedProductionPlantScene = () => {
       {/* ========== RAW MATERIALS SECTION ========== */}
       <group position={[-50, 0, 20]}>
         {/* Silo 1 - Grain */}
-        <IndustrialSilo
+        <InteractiveComponent
+          name="Grain Silo"
+          type="Storage Silo"
+          status={systemStatus.silos ? 'Operational' : 'Stopped'}
+          specs={{
+            'Capacity': '500T',
+            'Fill Level': `${(envMetrics.siloFillLevels[0] * 100).toFixed(0)}%`,
+            'Material': 'Grain',
+            'Height': '12m',
+            'Diameter': '6m'
+          }}
           position={[0, 0, 0]}
-          isActive={systemStatus.silos}
-          fillLevel={envMetrics.siloFillLevels[0]}
-          material="Grain"
-          capacity="500T"
-          height={12}
-          radius={3}
-        />
+          onSelect={setSelectedComponent}
+          isSelected={selectedComponent === 'Grain Silo'}
+        >
+          <IndustrialSilo
+            position={[0, 0, 0]}
+            isActive={systemStatus.silos}
+            fillLevel={envMetrics.siloFillLevels[0]}
+            material="Grain"
+            capacity="500T"
+            height={12}
+            radius={3}
+          />
+        </InteractiveComponent>
 
         {/* Silo 2 - Powder */}
-        <IndustrialSilo
+        <InteractiveComponent
+          name="Powder Silo"
+          type="Storage Silo"
+          status={systemStatus.silos ? 'Operational' : 'Stopped'}
+          specs={{
+            'Capacity': '400T',
+            'Fill Level': `${(envMetrics.siloFillLevels[1] * 100).toFixed(0)}%`,
+            'Material': 'Powder',
+            'Height': '10m',
+            'Diameter': '5m'
+          }}
           position={[10, 0, 0]}
-          isActive={systemStatus.silos}
-          fillLevel={envMetrics.siloFillLevels[1]}
-          material="Powder"
-          capacity="400T"
-          height={10}
-          radius={2.5}
-        />
+          onSelect={setSelectedComponent}
+          isSelected={selectedComponent === 'Powder Silo'}
+        >
+          <IndustrialSilo
+            position={[0, 0, 0]}
+            isActive={systemStatus.silos}
+            fillLevel={envMetrics.siloFillLevels[1]}
+            material="Powder"
+            capacity="400T"
+            height={10}
+            radius={2.5}
+          />
+        </InteractiveComponent>
 
         {/* Silo 3 - Pellets */}
         <IndustrialSilo
@@ -489,6 +553,7 @@ const AdvancedProductionPlantScene = () => {
 
       {/* Camera Controls - Enhanced for close-up viewing */}
       <OrbitControls
+        ref={controlsRef}
         enablePan={!mobile}
         enableZoom={true}
         enableRotate={true}
@@ -522,6 +587,10 @@ const SceneLoader = () => (
 const AdvancedDigitalTwin3D = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const mobile = useMemo(() => isMobile(), []);
+  const controlsRef = useRef();
+  const cameraRef = useRef();
+  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [componentList, setComponentList] = useState([]);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 2000);
@@ -541,7 +610,19 @@ const AdvancedDigitalTwin3D = () => {
   }
   
   return (
-    <div className={`w-full ${mobile ? 'h-[500px]' : 'h-[800px]'} bg-gradient-to-b from-sky-200 to-zinc-300 rounded-3xl overflow-hidden border border-zinc-800/50 shadow-2xl`}>
+    <div className={`relative w-full ${mobile ? 'h-[500px]' : 'h-[800px]'} bg-gradient-to-b from-sky-200 to-zinc-300 rounded-3xl overflow-hidden border border-zinc-800/50 shadow-2xl`}>
+      {/* Camera Presets Overlay */}
+      {!mobile && <CameraPresets controlsRef={controlsRef} cameraRef={cameraRef} />}
+      
+      {/* Component Selector Overlay */}
+      {!mobile && (
+        <ComponentSelector 
+          components={componentList}
+          onSelectComponent={setSelectedComponent}
+          selectedComponent={selectedComponent}
+        />
+      )}
+
       <Canvas
         camera={{ position: mobile ? [80, 50, 80] : [70, 40, 70], fov: mobile ? 65 : 60 }}
         shadows={!mobile}
@@ -557,13 +638,19 @@ const AdvancedDigitalTwin3D = () => {
           logarithmicDepthBuffer: true
         }}
         frameloop={mobile ? "demand" : "always"}
-        onCreated={({ gl }) => {
+        onCreated={({ gl, camera }) => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
           gl.toneMappingExposure = 1.2;
+          cameraRef.current = camera;
         }}
       >
         <Suspense fallback={<SceneLoader />}>
-          <AdvancedProductionPlantScene />
+          <AdvancedProductionPlantScene 
+            controlsRef={controlsRef}
+            selectedComponent={selectedComponent}
+            setSelectedComponent={setSelectedComponent}
+            setComponentList={setComponentList}
+          />
         </Suspense>
       </Canvas>
     </div>

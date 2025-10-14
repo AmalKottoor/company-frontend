@@ -2,8 +2,8 @@ import { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, Play, RotateCcw, Zap } from 'lucide-react';
 
-// Lazy load the advanced adaptive 3D component
-const AdaptiveDigitalTwin = lazy(() => import('./AdaptiveDigitalTwin'));
+// Lazy load the hybrid digital twin component
+const HybridDigitalTwin = lazy(() => import('./HybridDigitalTwin'));
 
 const DigitalTwinSection = () => {
   const features = [
@@ -56,44 +56,18 @@ const DigitalTwinSection = () => {
           transition={{ delay: 0.2, duration: 0.8 }}
         >
           <div className="relative bg-zinc-900/50 backdrop-blur-xl rounded-3xl p-8 border border-zinc-800/50">
-            <div className="mb-6">
-              <h3 className="text-2xl font-semibold text-white mb-2 tracking-tight">
-                Advanced Production Plant Digital Twin
-              </h3>
-              <p className="text-zinc-400 text-sm font-light">
-                Explore our large-scale production facility with silos, boilers, cooling towers, and complete production line. 
-                The system automatically adapts to your device for optimal performance.
-              </p>
-            </div>
-            
-            {/* Lazy-loaded Advanced 3D Component */}
+            {/* Lazy-loaded Hybrid Digital Twin */}
             <Suspense fallback={
-              <div className="w-full h-[600px] md:h-[700px] flex items-center justify-center bg-zinc-950 rounded-2xl border border-zinc-800/50">
+              <div className="w-full h-[600px] flex items-center justify-center bg-zinc-950 rounded-2xl border border-zinc-800/50">
                 <div className="text-center text-zinc-400 px-4">
                   <div className="w-12 h-12 border-4 border-neon-cyan border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p className="font-light text-sm md:text-base">Loading Advanced Digital Twin...</p>
-                  <p className="text-xs text-zinc-600 mt-2">Analyzing device capabilities and optimizing simulation...</p>
+                  <p className="font-light text-sm md:text-base">Loading Digital Twin System...</p>
+                  <p className="text-xs text-zinc-600 mt-2">Preparing SVG, Three.js, and Unity rendering engines...</p>
                 </div>
               </div>
             }>
-              <AdaptiveDigitalTwin showControls={true} />
+              <HybridDigitalTwin />
             </Suspense>
-
-            {/* Instructions */}
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-zinc-400 font-light">
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]"></div>
-                <span>Adaptive Quality: Auto-selects best mode</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-purple-400 rounded-full shadow-[0_0_8px_rgba(168,85,247,0.6)]"></div>
-                <span>15+ Components: Full factory simulation</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-green-400 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.6)]"></div>
-                <span>Real-time Metrics: OEE & production tracking</span>
-              </div>
-            </div>
           </div>
         </motion.div>
 
@@ -144,12 +118,12 @@ const DigitalTwinSection = () => {
             </h3>
             <ul className="space-y-4">
               {[
-                'Large-scale production plant with 15+ industrial components',
-                'Industrial silos, boilers, cooling towers, and storage tanks',
-                'Adaptive rendering: Unity WebGL or Three.js based on device',
-                'Real-time OEE calculations and production metrics',
-                'Interactive control panels with emergency stop',
-                'Mobile-optimized with automatic quality adjustment'
+                'Triple rendering modes: SVG+GSAP, Three.js 3D, Unity WebGL',
+                'Crystal-clear SVG graphics with GSAP animations (TagDynamix-style)',
+                'Interactive 3D models with camera presets and component selection',
+                'Real-time OEE calculations and comprehensive production metrics',
+                'Hybrid approach: Choose best rendering for your device',
+                'Professional SCADA-level visualization and controls'
               ].map((capability, index) => (
                 <li key={index} className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-neon-cyan rounded-full mt-2 flex-shrink-0 shadow-[0_0_6px_rgba(0,255,255,0.6)]"></div>
