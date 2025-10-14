@@ -1,0 +1,27 @@
+# Unity Builds Directory
+
+Place your Unity WebGL builds here in the following structure:
+
+```
+unity-builds/
+├── mobile/
+│   └── Build/
+│       ├── ProductionPlantMobile.data
+│       ├── ProductionPlantMobile.framework.js
+│       ├── ProductionPlantMobile.loader.js
+│       └── ProductionPlantMobile.wasm
+├── desktop/
+│   └── Build/
+│       ├── ProductionPlant.data
+│       ├── ProductionPlant.framework.js
+│       ├── ProductionPlant.loader.js
+│       └── ProductionPlant.wasm
+└── desktop-hq/
+    └── Build/
+        ├── ProductionPlantHQ.data
+        ├── ProductionPlantHQ.framework.js
+        ├── ProductionPlantHQ.loader.js
+        └── ProductionPlantHQ.wasm
+```
+
+See UNITY_INTEGRATION_GUIDE.md for detailed instructions.
