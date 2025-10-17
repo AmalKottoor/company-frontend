@@ -72,16 +72,32 @@ const detectDeviceCapabilities = () => {
   if (gpuTier === 'high') performanceScore += 15;
   else if (gpuTier === 'medium') performanceScore += 8;
   
+  // Check if Unity builds are available
+  const checkUnityAvailable = async () => {
+    try {
+      const response = await fetch('/unity-builds/desktop/Build/ProductionPlant.loader.js', { method: 'HEAD' });
+      return response.ok;
+    } catch {
+      return false;
+    }
+  };
+  
   // Determine rendering mode
   let renderMode = 'mobile'; // Default to most compatible
   
-  if (performanceScore >= 80 && isDesktop && hasWebGL2) {
-    renderMode = 'unity'; // Best quality - Unity WebGL
-  } else if (performanceScore >= 60 && !isMobile) {
-    renderMode = 'advanced'; // Advanced Three.js
+  // For now, skip Unity mode since builds aren't ready yet
+  // Once Unity builds are available, this will automatically enable Unity mode
+  if (performanceScore >= 60 && !isMobile) {
+    renderMode = 'advanced'; // Advanced Three.js (best available)
   } else if (performanceScore >= 40) {
     renderMode = 'standard'; // Standard Three.js (mobile-optimized)
   }
+  
+  // Unity mode will be enabled once builds are generated
+  // Uncomment below when Unity builds are ready:
+  // if (performanceScore >= 80 && isDesktop && hasWebGL2) {
+  //   renderMode = 'unity'; // Best quality - Unity WebGL
+  // }
   
   return {
     isMobile,
@@ -250,19 +266,16 @@ const AdaptiveDigitalTwin = ({
           <div className="flex gap-2">
             <button
               onClick={() => handleModeChange('unity')}
-              disabled={!capabilities.hasWebGL2 || capabilities.performanceScore < 60}
+              disabled={true}
+              title="Unity builds not yet generated. Follow unity-project/QUICK_START.md to create builds."
               className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
                 selectedMode === 'unity'
                   ? 'bg-purple-500/30 border-purple-500 text-purple-400'
                   : 'bg-zinc-800 border-zinc-700 text-zinc-400 hover:bg-zinc-700'
-              } border ${
-                !capabilities.hasWebGL2 || capabilities.performanceScore < 60
-                  ? 'opacity-50 cursor-not-allowed'
-                  : ''
-              }`}
+              } border opacity-50 cursor-not-allowed`}
             >
               <Zap className="w-3 h-3 inline mr-1" />
-              Unity (High-End)
+              Unity (Coming Soon)
             </button>
             <button
               onClick={() => handleModeChange('advanced')}
