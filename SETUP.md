@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a modern React application built with Vite, Tailwind CSS 3, and Three.js for OptiAutomata - an industrial automation solutions provider.
+This is a modern React application built with Vite, Tailwind CSS 3, and Three.js for Caelus Technologies - an industrial automation solutions provider.
 
 ## Prerequisites
 
@@ -230,4 +230,4 @@ For issues or questions:
 
 ## License
 
-© 2025 OptiAutomata. All rights reserved.
+© 2025 Caelus Technologies. All rights reserved.

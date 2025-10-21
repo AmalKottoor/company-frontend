@@ -3,6 +3,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { AdminProvider } from './contexts/AdminContext';
 import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
+import Logo from './components/Logo';
 
 // Lazy load heavy components for better initial load performance
 const ServicesSection = lazy(() => import('./components/ServicesSection'));
@@ -61,9 +62,9 @@ function App() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 {/* Company Info */}
                 <div>
-                  <h3 className="text-2xl font-semibold text-white mb-4 tracking-tight">
-                    OptiAutomata
-                  </h3>
+                  <div className="mb-4">
+                    <Logo size={40} showText={true} animated={false} />
+                  </div>
                   <p className="text-zinc-400 leading-relaxed font-light">
                     Leading industrial automation and digital transformation partner—delivering innovative engineering solutions from concept to commissioning.
                   </p>
@@ -89,13 +90,16 @@ function App() {
                     <a href="mailto:amalkottooran01@gmail.com" className="text-neon-cyan font-medium hover:text-neon-blue transition-colors block">
                       amalkottooran01@gmail.com
                     </a>
-                    <p className="text-sm pt-4 text-zinc-600">© 2025 OptiAutomata. All rights reserved.</p>
+                    <p className="text-sm pt-4 text-zinc-600">© 2025 Caelus Technologies. All rights reserved.</p>
                   </div>
                 </div>
               </div>
               
               <div className="border-t border-zinc-800/50 pt-8 mt-12 text-center text-zinc-600 font-light text-sm">
-                <p>Powered by React, Vite, Tailwind CSS, and Three.js</p>
+                <p className="mb-2">© 2025 Caelus Technologies. All rights reserved.</p>
+                <p className="text-xs text-zinc-700">
+                  Caelus Technologies is a registered trademark of Caelus Technologies. Third party trademarks are the property of their respective owners.
+                </p>
               </div>
             </div>
           </footer>

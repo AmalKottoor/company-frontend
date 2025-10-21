@@ -1,4 +1,4 @@
-# robots.txt for OptiAutomata
+# robots.txt for Caelus Technologies
 User-agent: *
 Allow: /
 Disallow: /admin/

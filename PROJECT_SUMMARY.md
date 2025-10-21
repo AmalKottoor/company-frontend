@@ -2,7 +2,7 @@
 
 ## Overview
 
-Successfully created a modern, production-ready React application replicating the OptiAutomata industrial automation website using **React 19**, **Vite 6**, and **Tailwind CSS 3**.
+Successfully created a modern, production-ready React application replicating the Caelus Technologies industrial automation website using **React 19**, **Vite 6**, and **Tailwind CSS 3**.
 
 ## Project Location
 
@@ -318,7 +318,7 @@ The project is production-ready and can be deployed to:
 
 ## Conclusion
 
-The Company-Frontend project successfully replicates the original OptiAutomata website with modern tooling and best practices. The codebase is:
+The Company-Frontend project successfully replicates the original Caelus Technologies website with modern tooling and best practices. The codebase is:
 
 - **Production-ready** ✅
 - **Well-organized** ✅

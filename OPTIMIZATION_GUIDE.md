@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines all performance optimizations implemented for the OptiAutomata website to ensure excellent performance on both PC and mobile devices without any UI or component changes.
+This document outlines all performance optimizations implemented for the Caelus Technologies website to ensure excellent performance on both PC and mobile devices without any UI or component changes.
 
 ## 📋 Table of Contents
 

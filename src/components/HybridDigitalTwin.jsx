@@ -7,20 +7,22 @@ import AdvancedDigitalTwin3D from './AdvancedDigitalTwin3D';
  * Switches between SVG (lightweight), Three.js (medium), and Unity (high-end)
  */
 const HybridDigitalTwin = () => {
-  const [renderMode, setRenderMode] = useState('svg'); // 'svg', '3d', 'unity'
-  const [showControls, setShowControls] = useState(true);
+  // DISABLED: GSAP (SVG) and Unity modes - will be re-enabled later
+  const [renderMode, setRenderMode] = useState('3d'); // 'svg', '3d', 'unity' - Currently only '3d' enabled
+  const [showControls, setShowControls] = useState(false); // Hidden by default since only one mode available
 
   const modes = [
-    {
-      id: 'svg',
-      name: 'SVG + GSAP',
-      icon: '⚡',
-      description: 'Ultra-fast, crystal-clear 2D visualization',
-      performance: 'Excellent',
-      quality: 'High',
-      compatibility: '100%',
-      recommended: 'All devices'
-    },
+    // HIDDEN: SVG + GSAP mode temporarily hidden
+    // {
+    //   id: 'svg',
+    //   name: 'SVG + GSAP',
+    //   icon: '⚡',
+    //   description: 'Ultra-fast, crystal-clear 2D visualization',
+    //   performance: 'Excellent',
+    //   quality: 'High',
+    //   compatibility: '100%',
+    //   recommended: 'All devices'
+    // },
     {
       id: '3d',
       name: 'Three.js 3D',
@@ -31,16 +33,17 @@ const HybridDigitalTwin = () => {
       compatibility: '95%',
       recommended: 'Desktop & tablets'
     },
-    {
-      id: 'unity',
-      name: 'Unity WebGL',
-      icon: '🚀',
-      description: 'Photorealistic high-end graphics',
-      performance: 'Medium',
-      quality: 'Ultra High',
-      compatibility: '80%',
-      recommended: 'High-end desktop only'
-    }
+    // HIDDEN: Unity WebGL mode temporarily hidden
+    // {
+    //   id: 'unity',
+    //   name: 'Unity WebGL',
+    //   icon: '🚀',
+    //   description: 'Photorealistic high-end graphics',
+    //   performance: 'Medium',
+    //   quality: 'Ultra High',
+    //   compatibility: '80%',
+    //   recommended: 'High-end desktop only'
+    // }
   ];
 
   const currentMode = modes.find(m => m.id === renderMode);
@@ -64,7 +67,7 @@ const HybridDigitalTwin = () => {
           </div>
 
           {/* Mode Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-4 mb-6">
             {modes.map((mode) => (
               <button
                 key={mode.id}
@@ -168,22 +171,22 @@ const HybridDigitalTwin = () => {
           </div>
         )}
 
-        {/* SVG Mode */}
-        {renderMode === 'svg' && (
+        {/* SVG Mode - DISABLED TEMPORARILY */}
+        {/* {renderMode === 'svg' && (
           <div className="animate-fadeIn">
             <SVGDigitalTwin />
           </div>
-        )}
+        )} */}
 
-        {/* Three.js Mode */}
+        {/* Three.js Mode - ACTIVE */}
         {renderMode === '3d' && (
           <div className="animate-fadeIn">
             <AdvancedDigitalTwin3D />
           </div>
         )}
 
-        {/* Unity Mode */}
-        {renderMode === 'unity' && (
+        {/* Unity Mode - DISABLED TEMPORARILY */}
+        {/* {renderMode === 'unity' && (
           <div className="animate-fadeIn">
             <div className="w-full h-[800px] bg-zinc-900 rounded-3xl flex items-center justify-center border-2 border-yellow-500">
               <div className="text-center p-8 max-w-2xl">
@@ -218,7 +221,7 @@ const HybridDigitalTwin = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Mode Comparison Table */}

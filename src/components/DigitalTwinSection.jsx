@@ -62,7 +62,7 @@ const DigitalTwinSection = () => {
                 <div className="text-center text-zinc-400 px-4">
                   <div className="w-12 h-12 border-4 border-neon-cyan border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                   <p className="font-light text-sm md:text-base">Loading Digital Twin System...</p>
-                  <p className="text-xs text-zinc-600 mt-2">Preparing SVG, Three.js, and Unity rendering engines...</p>
+                  <p className="text-xs text-zinc-600 mt-2">Preparing Three.js 3D rendering engine...</p>
                 </div>
               </div>
             }>

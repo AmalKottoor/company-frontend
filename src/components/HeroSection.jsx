@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ChevronDown, Zap, Cpu, BarChart3, Cog } from 'lucide-react';
+import Logo from './Logo';
 
 const HeroSection = () => {
   const scrollToServices = () => {
@@ -31,12 +32,22 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          {/* Main Heading */}
-          <h1 className="text-7xl md:text-9xl font-light mb-8 tracking-tight" data-testid="hero-main-title">
-            <span className="text-white">
-              OptiAutomata
-            </span>
-          </h1>
+          {/* Logo and Main Heading */}
+          <div className="flex flex-col items-center mb-8">
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6, type: "spring" }}
+              className="mb-6"
+            >
+              <Logo size={80} showText={false} animated={false} />
+            </motion.div>
+            <h1 className="text-7xl md:text-9xl font-light tracking-tight" data-testid="hero-main-title">
+              <span className="text-white">
+                Caelus Technologies
+              </span>
+            </h1>
+          </div>
           
           <motion.p
             className="text-xl md:text-2xl text-zinc-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light"

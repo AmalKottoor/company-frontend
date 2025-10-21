@@ -128,7 +128,7 @@ const ContactSection = () => {
           transition={{ delay: 0.8, duration: 0.8 }}
         >
           <h3 className="text-3xl font-light text-white mb-12 text-center tracking-tight">
-            Why Choose OptiAutomata?
+            Why Choose Caelus Technologies?
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[

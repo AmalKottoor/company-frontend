@@ -1,6 +1,6 @@
 {
-  "name": "OptiAutomata - Industrial Automation Solutions",
-  "short_name": "OptiAutomata",
+  "name": "Caelus Technologies - Industrial Automation Solutions",
+  "short_name": "Caelus Technologies",
   "description": "Leading industrial automation solutions provider specializing in PLC, SCADA, Digital Twin, and IoT technologies",
   "start_url": "/",
   "display": "standalone",
@@ -9,7 +9,7 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/vite.svg",
+      "src": "/caelus-logo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

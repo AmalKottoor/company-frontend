@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Sun, Moon, Mail, Home, Briefcase, Code, Cpu } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
+import Logo from './Logo';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -72,10 +73,8 @@ const Navigation = () => {
               <div className="p-8 pt-24">
                 {/* Logo */}
                 <div className="mb-12">
-                  <h1 className="text-2xl font-semibold text-white tracking-tight">
-                    OptiAutomata
-                  </h1>
-                  <p className="text-sm text-zinc-500 mt-2 font-light">Industrial Automation Solutions</p>
+                  <Logo size={48} showText={true} animated={true} />
+                  <p className="text-sm text-zinc-500 mt-3 font-light">Industrial Automation Solutions</p>
                 </div>
 
                 {/* Navigation Items */}
@@ -101,7 +100,7 @@ const Navigation = () => {
                 <div className="absolute bottom-8 left-8 right-8">
                   <div className="border-t border-zinc-800/50 pt-4">
                     <p className="text-xs text-zinc-600 font-light">
-                      © 2025 OptiAutomata
+                      © 2025 Caelus Technologies
                     </p>
                   </div>
                 </div>

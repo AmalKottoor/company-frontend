@@ -1,4 +1,4 @@
-# OptiAutomata - Company Frontend
+# Caelus Technologies - Company Frontend
 
 A modern, responsive industrial automation company website built with React, Vite, and Tailwind CSS 3.
 
@@ -122,4 +122,4 @@ Update configuration files:
 
 ## License
 
-© 2025 OptiAutomata. All rights reserved.
+© 2025 Caelus Technologies. All rights reserved.
