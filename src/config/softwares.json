@@ -1,16 +1,16 @@
 {
   "softwares": [
-    {"id":"ignition","name":"Ignition (Inductive Automation)","logo":"/logos/ignition.svg"},
-    {"id":"rockwell","name":"Rockwell Automation Software Suite","logo":"/logos/factorytalk.svg"},
-    {"id":"siemens","name":"Siemens Software Suite","logo":"https://logos-world.net/wp-content/uploads/2020/11/Siemens-Logo.png"},
-    {"id":"canary","name":"Canary Historian","logo":"/logos/canary.svg"},
-    {"id":"hivemq","name":"HiveMQ / MQTT","logo":"https://www.hivemq.com/img/svg/hivemq-bee.svg"},
-    {"id":"labview","name":"NI LabVIEW","logo":"/logos/labview.svg"},
-    {"id":"autocad","name":"AutoCAD","logo":"/logos/autocad.svg"},
-    {"id":"eplan","name":"EPLAN","logo":"/logos/eplan.svg"},
-    {"id":"anylogic","name":"AnyLogic","logo":"/logos/anylogic.svg"},
-    {"id":"unity","name":"Unity","logo":"/logos/unity.svg"},
-    {"id":"arduino","name":"Arduino","logo":"/logos/arduino.svg"},
-    {"id":"dynamics","name":"Dynamics 365","logo":"/logos/dynamics365.svg"}
+    {"id":"ignition","name":"Ignition (Inductive Automation)","logo":"/logos/ignition.png"},
+    {"id":"rockwell","name":"Rockwell Automation Software Suite","logo":"/logos/factorytalk.png"},
+    {"id":"siemens","name":"Siemens Software Suite","logo":"/logos/siemens.png"},
+    {"id":"canary","name":"Canary Historian","logo":"/logos/canary.png"},
+    {"id":"hivemq","name":"HiveMQ / MQTT","logo":"/logos/hivemq.png"},
+    {"id":"labview","name":"NI LabVIEW","logo":"/logos/labview.png"},
+    {"id":"autocad","name":"AutoCAD","logo":"/logos/autocad.png"},
+    {"id":"eplan","name":"EPLAN","logo":"/logos/eplan.png"},
+    {"id":"anylogic","name":"AnyLogic","logo":"/logos/anylogic.png"},
+    {"id":"unity","name":"Unity","logo":"/logos/unity.png"},
+    {"id":"arduino","name":"Arduino","logo":"/logos/arduino.png"},
+    {"id":"dynamics","name":"Dynamics 365","logo":"/logos/dynamics365.png"}
   ]
 }
