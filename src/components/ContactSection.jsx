@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Mail, Send, MapPin, Phone, Clock, ArrowRight } from 'lucide-react';
+import IndustrialBackground from './IndustrialBackground';
 
 const ContactSection = () => {
   const handleEmailClick = () => {
@@ -28,10 +29,18 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 bg-zinc-950 relative overflow-hidden">
-      {/* Minimal Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20" />
-
+    <section id="contact" className="py-24 bg-gradient-to-b from-background via-secondary/20 to-background relative overflow-hidden border-t border-b border-x border-border/30">
+      <IndustrialBackground variant="contact" intensity="medium" />
+      
+      {/* Decorative accent lines */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/15 to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent"></div>
+      
+      {/* Corner accent elements */}
+      <div className="absolute top-0 left-0 w-32 h-32 border-l border-t border-accent/10 rounded-tl-2xl"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 border-r border-t border-primary/10 rounded-tr-2xl"></div>
+      <div className="absolute bottom-0 left-0 w-32 h-32 border-l border-b border-primary/10 rounded-bl-2xl"></div>
+      <div className="absolute bottom-0 right-0 w-32 h-32 border-r border-b border-accent/10 rounded-br-2xl"></div>
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
           className="text-center mb-20"
@@ -47,15 +56,15 @@ const ContactSection = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
           >
-            <div className="w-16 h-16 mx-auto bg-zinc-900/80 border border-zinc-800/50 rounded-2xl flex items-center justify-center">
-              <Send size={28} className="text-neon-cyan" />
+            <div className="w-16 h-16 mx-auto bg-card border border-border rounded-2xl flex items-center justify-center shadow-sm">
+              <Send size={28} className="text-primary" />
             </div>
           </motion.div>
 
-          <h2 className="text-5xl md:text-6xl font-light mb-6 text-white tracking-tight">
+          <h2 className="text-5xl md:text-6xl font-light mb-6 text-foreground tracking-tight">
             Let's Transform Your Operations
           </h2>
-          <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed font-light">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
             Ready to optimize your industrial processes with cutting-edge automation solutions? 
             Get in touch with our team of experts today.
           </p>
@@ -72,18 +81,21 @@ const ContactSection = () => {
           {contactInfo.map((info, index) => (
             <motion.div
               key={index}
-              className="bg-zinc-900/50 backdrop-blur-xl rounded-3xl p-8 border border-zinc-800/50 text-center hover:border-zinc-700/50 transition-all duration-300"
+              className="bg-card backdrop-blur-xl rounded-3xl p-8 border border-border text-center hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-primary/10 relative overflow-hidden group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
               whileHover={{ y: -4 }}
             >
-              <div className={`inline-block p-3 rounded-2xl bg-zinc-800/80 border border-zinc-700/50 mb-4`}>
-                <info.icon size={22} className={`text-${info.color.split('-')[1]}`} />
+              {/* Card Background Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className={`inline-block p-3 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/5 border border-primary/20 mb-4 relative z-10 group-hover:scale-110 transition-transform duration-300`}>
+                <info.icon size={22} className="text-primary" />
               </div>
-              <h3 className="text-white font-medium mb-2">{info.title}</h3>
-              <p className="text-zinc-400 text-sm font-light">{info.detail}</p>
+              <h3 className="text-foreground font-medium mb-2">{info.title}</h3>
+              <p className="text-muted-foreground text-sm font-light">{info.detail}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -98,7 +110,7 @@ const ContactSection = () => {
         >
           <motion.button
             onClick={handleEmailClick}
-            className="group relative inline-flex items-center space-x-3 px-10 py-5 bg-white text-black rounded-full font-medium text-lg shadow-lg hover:bg-zinc-100 transition-all"
+            className="group relative inline-flex items-center space-x-3 px-10 py-5 bg-primary text-primary-foreground rounded-full font-medium text-lg shadow-lg hover:bg-primary/90 transition-all"
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -108,26 +120,26 @@ const ContactSection = () => {
           </motion.button>
 
           <motion.p
-            className="mt-6 text-zinc-500 text-sm font-light"
+            className="mt-6 text-muted-foreground text-sm font-light"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
           >
             Click to send us an email at{' '}
-            <span className="text-neon-cyan font-medium">amalkottooran01@gmail.com</span>
+            <span className="text-primary font-medium">amalkottooran01@gmail.com</span>
           </motion.p>
         </motion.div>
 
         {/* Features Grid */}
         <motion.div
-          className="mt-24 pt-20 border-t border-zinc-800/50"
+          className="mt-24 pt-20 border-t border-border"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
-          <h3 className="text-3xl font-light text-white mb-12 text-center tracking-tight">
+          <h3 className="text-3xl font-light text-foreground mb-12 text-center tracking-tight">
             Why Choose Caelus Technologies?
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -155,13 +167,13 @@ const ContactSection = () => {
             ].map((feature, index) => (
               <motion.div
                 key={index}
-                className="text-center p-8 bg-zinc-900/30 rounded-3xl border border-zinc-800/30"
+                className="text-center p-8 bg-card/50 rounded-3xl border border-border"
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
               >
                 <div className="text-4xl mb-4">{feature.icon}</div>
-                <h4 className="text-white font-medium mb-2">{feature.title}</h4>
-                <p className="text-zinc-400 text-sm font-light">{feature.description}</p>
+                <h4 className="text-foreground font-medium mb-2">{feature.title}</h4>
+                <p className="text-muted-foreground text-sm font-light">{feature.description}</p>
               </motion.div>
             ))}
           </div>

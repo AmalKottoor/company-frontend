@@ -32,14 +32,42 @@
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#00ffff" />
+    <meta name="theme-color" content="#2B7FD6" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Caelus Technologies",
+      "description": "Industrial automation solutions provider specializing in PLC programming, SCADA/HMI development, Digital Twin technology, and AI/ML analytics",
+      "url": "https://optiautomata.com",
+      "logo": "https://optiautomata.com/caelus-logo.svg",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "amalkottooran01@gmail.com",
+        "contactType": "Customer Service"
+      },
+      "sameAs": [],
+      "areaServed": "Worldwide",
+      "serviceType": [
+        "Industrial Automation",
+        "PLC Programming",
+        "SCADA Development",
+        "Digital Twin Technology",
+        "IoT Integration",
+        "AI/ML Analytics"
+      ]
+    }
+    </script>
+    
     <title>Caelus Technologies - Industrial Automation & Digital Twin Solutions | PLC, SCADA, IoT</title>
   </head>
   <body>
+    <noscript>You need to enable JavaScript to run this application.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -9,6 +9,9 @@ body {
     "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Performance optimizations */
+  text-rendering: optimizeSpeed;
+  -webkit-tap-highlight-color: transparent;
 }
 
 code {
@@ -18,66 +21,74 @@ code {
 
 @layer base {
   :root {
-    /* Apple-inspired minimal dark theme with neon accents */
-    --background: 0 0% 7%;
-    --foreground: 0 0% 95%;
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 95%;
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 0 0% 95%;
-    --primary-foreground: 0 0% 7%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 95%;
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 60%;
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 95%;
-    --destructive: 0 84.2% 60.2%;
+    /* Light Mode - Greyish Industrial Theme with darker foreground */
+    --background: 210 12% 88%;
+    --foreground: 215 25% 18%;
+    --card: 210 10% 92%;
+    --card-foreground: 215 25% 18%;
+    --popover: 210 10% 92%;
+    --popover-foreground: 215 25% 18%;
+    --primary: 205 75% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 12% 82%;
+    --secondary-foreground: 215 25% 18%;
+    --muted: 210 12% 85%;
+    --muted-foreground: 215 15% 35%;
+    --accent: 195 65% 42%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 18%;
-    --input: 0 0% 15%;
-    --ring: 180 100% 50%;
-    --chart-1: 180 100% 50%;
-    --chart-2: 280 100% 60%;
-    --chart-3: 320 100% 55%;
-    --chart-4: 200 100% 55%;
-    --chart-5: 140 100% 50%;
-    --radius: 1rem;
+    --border: 210 15% 75%;
+    --input: 210 12% 82%;
+    --ring: 205 75% 40%;
+    --chart-1: 205 75% 40%;
+    --chart-2: 195 65% 42%;
+    --chart-3: 185 60% 45%;
+    --chart-4: 210 65% 42%;
+    --chart-5: 175 60% 42%;
+    --radius: 0.75rem;
     
-    /* Neon accent colors */
-    --neon-cyan: 180 100% 50%;
-    --neon-purple: 280 100% 60%;
-    --neon-pink: 320 100% 55%;
-    --neon-blue: 200 100% 55%;
-    --neon-green: 140 100% 50%;
+    /* Industrial accent colors - Light Mode */
+    --neon-cyan: 185 65% 40%;
+    --neon-purple: 250 55% 48%;
+    --neon-pink: 330 65% 45%;
+    --neon-blue: 205 75% 40%;
+    --neon-green: 155 60% 40%;
   }
   
   .dark {
-    --background: 0 0% 7%;
-    --foreground: 0 0% 95%;
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 95%;
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 0 0% 95%;
-    --primary-foreground: 0 0% 7%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 95%;
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 60%;
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 95%;
+    /* Dark Mode - Industrial Tech Theme with refined neon accents */
+    --background: 215 25% 8%;
+    --foreground: 210 15% 92%;
+    --card: 215 20% 12%;
+    --card-foreground: 210 15% 92%;
+    --popover: 215 20% 12%;
+    --popover-foreground: 210 15% 92%;
+    --primary: 195 85% 55%;
+    --primary-foreground: 215 25% 8%;
+    --secondary: 215 15% 18%;
+    --secondary-foreground: 210 15% 92%;
+    --muted: 215 15% 20%;
+    --muted-foreground: 210 10% 55%;
+    --accent: 185 75% 50%;
+    --accent-foreground: 215 25% 8%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 18%;
-    --input: 0 0% 15%;
-    --ring: 180 100% 50%;
-    --chart-1: 180 100% 50%;
-    --chart-2: 280 100% 60%;
-    --chart-3: 320 100% 55%;
-    --chart-4: 200 100% 55%;
-    --chart-5: 140 100% 50%;
+    --border: 215 15% 22%;
+    --input: 215 15% 18%;
+    --ring: 195 85% 55%;
+    --chart-1: 195 85% 55%;
+    --chart-2: 185 75% 50%;
+    --chart-3: 175 65% 55%;
+    --chart-4: 205 70% 50%;
+    --chart-5: 165 60% 50%;
+    
+    /* Industrial accent colors - Dark Mode */
+    --neon-cyan: 185 85% 55%;
+    --neon-purple: 260 70% 60%;
+    --neon-pink: 330 80% 60%;
+    --neon-blue: 205 85% 55%;
+    --neon-green: 155 75% 50%;
   }
 }
 
@@ -102,10 +113,48 @@ code {
   
   .backface-hidden {
     backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
   }
   
   .rotate-y-180 {
     transform: rotateY(180deg);
+  }
+}
+
+/* Performance Optimization Utilities */
+@layer utilities {
+  /* GPU acceleration for animations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Optimize rendering for sections */
+  section {
+    contain: layout style paint;
+    content-visibility: auto;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    /* Reduce blur on mobile for better performance */
+    [class*="blur-"] {
+      filter: blur(20px) !important;
+    }
   }
 }

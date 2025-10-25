@@ -53,7 +53,7 @@ const Logo = ({ className = "", size = 40, showText = true, animated = true }) =
         />
         
         {/* Star/celestial elements */}
-        <circle cx="30" cy="30" r="2" fill="#00ffff" opacity="0.8">
+        <circle cx="30" cy="30" r="2" fill="hsl(var(--primary))" opacity="0.8">
           <animate
             attributeName="opacity"
             values="0.4;1;0.4"
@@ -61,7 +61,7 @@ const Logo = ({ className = "", size = 40, showText = true, animated = true }) =
             repeatCount="indefinite"
           />
         </circle>
-        <circle cx="75" cy="45" r="1.5" fill="#a855f7" opacity="0.8">
+        <circle cx="75" cy="45" r="1.5" fill="hsl(var(--accent))" opacity="0.8">
           <animate
             attributeName="opacity"
             values="0.3;0.9;0.3"
@@ -69,7 +69,7 @@ const Logo = ({ className = "", size = 40, showText = true, animated = true }) =
             repeatCount="indefinite"
           />
         </circle>
-        <circle cx="35" cy="70" r="1.5" fill="#00ffff" opacity="0.8">
+        <circle cx="35" cy="70" r="1.5" fill="hsl(var(--primary))" opacity="0.8">
           <animate
             attributeName="opacity"
             values="0.5;1;0.5"
@@ -81,19 +81,19 @@ const Logo = ({ className = "", size = 40, showText = true, animated = true }) =
         {/* Gradients */}
         <defs>
           <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#00ffff" />
-            <stop offset="50%" stopColor="#0ea5e9" />
-            <stop offset="100%" stopColor="#a855f7" />
+            <stop offset="0%" stopColor="hsl(var(--primary))" />
+            <stop offset="50%" stopColor="hsl(var(--accent))" />
+            <stop offset="100%" stopColor="hsl(var(--primary))" />
           </linearGradient>
           
           <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#a855f7" />
-            <stop offset="100%" stopColor="#00ffff" />
+            <stop offset="0%" stopColor="hsl(var(--accent))" />
+            <stop offset="100%" stopColor="hsl(var(--primary))" />
           </linearGradient>
           
           <radialGradient id="glowGradient">
-            <stop offset="0%" stopColor="#00ffff" />
-            <stop offset="100%" stopColor="#a855f7" />
+            <stop offset="0%" stopColor="hsl(var(--primary))" />
+            <stop offset="100%" stopColor="hsl(var(--accent))" />
           </radialGradient>
         </defs>
       </svg>
@@ -101,10 +101,10 @@ const Logo = ({ className = "", size = 40, showText = true, animated = true }) =
       {/* Company Name */}
       {showText && (
         <div className="flex flex-col leading-tight">
-          <span className="text-xl font-semibold text-white tracking-tight">
+          <span className="text-xl font-semibold text-foreground tracking-tight">
             Caelus
           </span>
-          <span className="text-xs text-zinc-400 font-light tracking-wide">
+          <span className="text-xs text-muted-foreground font-light tracking-wide">
             TECHNOLOGIES
           </span>
         </div>

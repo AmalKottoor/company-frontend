@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, X } from 'lucide-react';
 import ServiceCard from './ServiceCard';
+import IndustrialBackground from './IndustrialBackground';
 import { useAdmin } from '../contexts/AdminContext';
 import servicesData from '../config/services.json';
 
@@ -20,8 +21,19 @@ const ServicesSection = () => {
   );
 
   return (
-    <section id="services" className="py-24 bg-zinc-950">
-      <div className="container mx-auto px-6">
+    <section id="services" className="py-24 bg-gradient-to-b from-background via-secondary/20 to-background relative overflow-hidden border-t border-b border-x border-border/30">
+      <IndustrialBackground variant="services" intensity="medium" />
+      
+      {/* Decorative accent lines */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/15 to-transparent"></div>
+      
+      {/* Corner accent elements */}
+      <div className="absolute top-0 left-0 w-32 h-32 border-l border-t border-primary/10 rounded-tl-2xl"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 border-r border-t border-accent/10 rounded-tr-2xl"></div>
+      <div className="absolute bottom-0 left-0 w-32 h-32 border-l border-b border-accent/10 rounded-bl-2xl"></div>
+      <div className="absolute bottom-0 right-0 w-32 h-32 border-r border-b border-primary/10 rounded-br-2xl"></div>
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
@@ -29,10 +41,10 @@ const ServicesSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl md:text-6xl font-light mb-6 tracking-tight text-white" data-testid="services-section-title">
+          <h2 className="text-5xl md:text-6xl font-light mb-6 tracking-tight text-foreground" data-testid="services-section-title">
             Core Competency Areas
           </h2>
-          <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed font-light">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
             End-to-end industrial automation and digital transformation solutions—from electrical design and PLC programming to AI/ML analytics and immersive Digital Twin implementations
           </p>
         </motion.div>
@@ -46,18 +58,18 @@ const ServicesSection = () => {
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           <div className="relative">
-            <Search size={18} className="absolute left-5 top-1/2 transform -translate-y-1/2 text-zinc-500" />
+            <Search size={18} className="absolute left-5 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search services or tools..."
-              className="w-full pl-14 pr-14 py-4 bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 rounded-full focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 focus:border-neon-cyan/50 transition-all text-white placeholder-zinc-500"
+              className="w-full pl-14 pr-14 py-4 bg-card/50 backdrop-blur-xl border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-foreground placeholder-muted-foreground"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               data-testid="services-search-input"
             />
             {searchTerm && (
               <button
-                className="absolute right-5 top-1/2 transform -translate-y-1/2 text-zinc-500 hover:text-neon-cyan transition-colors"
+                className="absolute right-5 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors"
                 onClick={() => setSearchTerm('')}
                 data-testid="services-search-clear"
               >
@@ -95,11 +107,11 @@ const ServicesSection = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-zinc-500"
+                className="text-muted-foreground"
                 data-testid="services-no-results"
               >
                 <Search size={48} className="mx-auto mb-4 opacity-30" />
-                <h3 className="text-xl font-medium mb-2 text-white">No services found</h3>
+                <h3 className="text-xl font-medium mb-2 text-foreground">No services found</h3>
                 <p className="font-light">Try adjusting your search terms or browse all services</p>
               </motion.div>
             </div>
@@ -108,7 +120,7 @@ const ServicesSection = () => {
 
         {/* Stats */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 pt-20 border-t border-zinc-800/50"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 pt-20 border-t border-border"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -125,10 +137,10 @@ const ServicesSection = () => {
               className="text-center"
               data-testid={`services-stat-${index}`}
             >
-              <div className="text-4xl md:text-5xl font-light text-white mb-2">
+              <div className="text-4xl md:text-5xl font-light text-foreground mb-2">
                 {stat.number}
               </div>
-              <div className="text-zinc-500 font-light">
+              <div className="text-muted-foreground font-light">
                 {stat.label}
               </div>
             </div>

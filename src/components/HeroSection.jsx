@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { ChevronDown, Zap, Cpu, BarChart3, Cog } from 'lucide-react';
+import { ArrowRight, Zap, Cpu, BarChart3, Cog, ChevronDown } from 'lucide-react';
 import Logo from './Logo';
+import IndustrialBackground from './IndustrialBackground';
 
 const HeroSection = () => {
   const scrollToServices = () => {
@@ -18,13 +19,17 @@ const HeroSection = () => {
   ];
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
-      {/* Minimal Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-30" />
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-background via-background to-secondary/20 border-b border-x border-border/30">
+      <IndustrialBackground variant="hero" intensity="high" />
       
-      {/* Subtle Glow Effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-cyan/10 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-purple/10 rounded-full blur-[120px]" />
+      {/* Decorative bottom accent line */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent"></div>
+      
+      {/* Corner accent elements */}
+      <div className="absolute top-0 left-0 w-32 h-32 border-l border-t border-primary/10 rounded-tl-2xl"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 border-r border-t border-accent/10 rounded-tr-2xl"></div>
+      <div className="absolute bottom-0 left-0 w-32 h-32 border-l border-b border-accent/10 rounded-bl-2xl"></div>
+      <div className="absolute bottom-0 right-0 w-32 h-32 border-r border-b border-primary/10 rounded-br-2xl"></div>
 
       <div className="container mx-auto px-6 text-center relative z-10">
         <motion.div
@@ -43,14 +48,14 @@ const HeroSection = () => {
               <Logo size={80} showText={false} animated={false} />
             </motion.div>
             <h1 className="text-7xl md:text-9xl font-light tracking-tight" data-testid="hero-main-title">
-              <span className="text-white">
+              <span className="text-foreground">
                 Caelus Technologies
               </span>
             </h1>
           </div>
           
           <motion.p
-            className="text-xl md:text-2xl text-zinc-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light"
+            className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed font-light"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
@@ -69,13 +74,13 @@ const HeroSection = () => {
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="flex items-center space-x-2 bg-zinc-900/50 backdrop-blur-xl rounded-full px-5 py-2.5 border border-zinc-800/50 hover:border-neon-cyan/30 transition-all duration-300"
+                className="flex items-center space-x-2 bg-card/50 backdrop-blur-xl rounded-full px-5 py-2.5 border border-border hover:border-primary/50 transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
                 data-testid={`hero-feature-${index}`}
               >
-                <feature.icon size={16} className="text-neon-cyan" />
-                <span className="text-zinc-300 text-sm font-medium">{feature.text}</span>
+                <feature.icon size={16} className="text-primary" />
+                <span className="text-foreground text-sm font-medium">{feature.text}</span>
               </motion.div>
             ))}
           </motion.div>
@@ -88,7 +93,7 @@ const HeroSection = () => {
             transition={{ delay: 0.9, duration: 0.8 }}
           >
             <motion.button
-              className="px-10 py-4 bg-white text-black rounded-full font-medium text-base hover:bg-zinc-100 transition-all shadow-lg"
+              className="px-10 py-4 bg-primary text-primary-foreground rounded-full font-medium text-base hover:bg-primary/90 transition-all shadow-lg"
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={scrollToServices}
@@ -97,7 +102,7 @@ const HeroSection = () => {
               Explore Our Solutions
             </motion.button>
             <motion.button
-              className="px-10 py-4 bg-transparent border border-zinc-700 text-white rounded-full font-medium text-base hover:bg-zinc-900/50 hover:border-neon-cyan/50 transition-all"
+              className="px-10 py-4 bg-transparent border border-border text-foreground rounded-full font-medium text-base hover:bg-secondary hover:border-primary/50 transition-all"
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
@@ -116,7 +121,7 @@ const HeroSection = () => {
         >
           <button
             onClick={scrollToServices}
-            className="text-zinc-600 hover:text-neon-cyan transition-colors"
+            className="text-muted-foreground hover:text-primary transition-colors"
             data-testid="hero-scroll-indicator"
           >
             <ChevronDown size={28} />

@@ -5,6 +5,7 @@ import {
   Zap, Cpu, Wrench, Factory, Gauge, Network, Code, Layers,
   Settings, Workflow, BarChart3, Globe
 } from 'lucide-react';
+import IndustrialBackground from './IndustrialBackground';
 import softwaresData from '../config/softwares.json';
 
 const SoftwareSection = () => {
@@ -39,8 +40,19 @@ const SoftwareSection = () => {
   };
 
   return (
-    <section id="software" className="py-24 bg-black">
-      <div className="container mx-auto px-6">
+    <section id="software" className="py-24 bg-gradient-to-b from-background via-secondary/10 to-background relative overflow-hidden border-t border-b border-x border-border/30">
+      <IndustrialBackground variant="software" intensity="medium" />
+      
+      {/* Decorative accent lines */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/15 to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent"></div>
+      
+      {/* Corner accent elements */}
+      <div className="absolute top-0 left-0 w-32 h-32 border-l border-t border-accent/10 rounded-tl-2xl"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 border-r border-t border-primary/10 rounded-tr-2xl"></div>
+      <div className="absolute bottom-0 left-0 w-32 h-32 border-l border-b border-primary/10 rounded-bl-2xl"></div>
+      <div className="absolute bottom-0 right-0 w-32 h-32 border-r border-b border-accent/10 rounded-br-2xl"></div>
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
@@ -48,10 +60,10 @@ const SoftwareSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl md:text-6xl font-light mb-6 text-white tracking-tight" data-testid="software-section-title">
+          <h2 className="text-5xl md:text-6xl font-light mb-6 text-foreground tracking-tight" data-testid="software-section-title">
             Software Competencies
           </h2>
-          <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed font-light">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
             Expertise across industry-leading platforms—delivering integrated automation solutions with proven technologies
           </p>
         </motion.div>
@@ -65,18 +77,18 @@ const SoftwareSection = () => {
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           <div className="relative">
-            <Search size={18} className="absolute left-5 top-1/2 transform -translate-y-1/2 text-zinc-500" />
+            <Search size={18} className="absolute left-5 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search software platforms..."
-              className="w-full pl-14 pr-14 py-4 bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 rounded-full focus:outline-none focus:ring-2 focus:ring-neon-purple/50 focus:border-neon-purple/50 transition-all text-white placeholder-zinc-500"
+              className="w-full pl-14 pr-14 py-4 bg-card/50 backdrop-blur-xl border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all text-foreground placeholder-muted-foreground"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               data-testid="software-search-input"
             />
             {searchTerm && (
               <button
-                className="absolute right-5 top-1/2 transform -translate-y-1/2 text-zinc-500 hover:text-neon-purple transition-colors"
+                className="absolute right-5 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-accent transition-colors"
                 onClick={() => setSearchTerm('')}
                 data-testid="software-search-clear"
               >
@@ -98,14 +110,16 @@ const SoftwareSection = () => {
             filteredSoftware.map((software, index) => (
               <motion.div
                 key={software.id}
-                className="group relative bg-zinc-900/50 backdrop-blur-xl rounded-3xl p-6 border border-zinc-800/50 hover:border-neon-purple/30 transition-all duration-500"
+                className="group relative bg-card backdrop-blur-xl rounded-3xl p-6 border border-border hover:border-accent/50 transition-all duration-500 shadow-lg hover:shadow-2xl hover:shadow-accent/10"
                 initial={{ opacity: 0, y: 30, scale: 0.9 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -8, scale: 1.05 }}
                 data-testid={`software-card-${software.id}`}
               >
+                {/* Gradient Overlay on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
                 {/* Logo Container with White Background */}
                 <div className="relative mb-4 h-24 flex items-center justify-center">
                   <div className="w-full h-full bg-white rounded-2xl p-4 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-500">
@@ -133,7 +147,7 @@ const SoftwareSection = () => {
                 </div>
 
                 {/* Software Name */}
-                <h3 className="text-white font-semibold text-center mb-2 group-hover:text-neon-purple transition-colors line-clamp-2 min-h-[3rem] flex items-center justify-center text-sm">
+                <h3 className="text-foreground font-semibold text-center mb-2 group-hover:text-accent transition-colors line-clamp-2 min-h-[3rem] flex items-center justify-center text-sm">
                   {software.name}
                 </h3>
 
@@ -149,11 +163,11 @@ const SoftwareSection = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-zinc-500"
+                className="text-muted-foreground"
                 data-testid="software-no-results"
               >
                 <Search size={48} className="mx-auto mb-4 opacity-30" />
-                <h3 className="text-xl font-medium mb-2 text-white">No software found</h3>
+                <h3 className="text-xl font-medium mb-2 text-foreground">No software found</h3>
                 <p className="font-light">Try adjusting your search terms</p>
               </motion.div>
             </div>
@@ -168,10 +182,10 @@ const SoftwareSection = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          <h3 className="text-3xl font-light text-white mb-4 text-center tracking-tight">
+          <h3 className="text-3xl font-light text-foreground mb-4 text-center tracking-tight">
             Core Competency Areas
           </h3>
-          <p className="text-zinc-400 text-center mb-12 text-sm">Click on any card to learn more</p>
+          <p className="text-muted-foreground text-center mb-12 text-sm">Click on any card to learn more</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
@@ -221,7 +235,7 @@ const SoftwareSection = () => {
                   {/* Front of Card */}
                   <div className="absolute w-full h-full backface-hidden">
                     <motion.div
-                      className="h-full text-center p-8 bg-zinc-900/50 backdrop-blur-xl rounded-3xl border border-zinc-800/50 hover:border-zinc-700/50 transition-all duration-300 flex flex-col items-center justify-center"
+                      className="h-full text-center p-8 bg-card backdrop-blur-xl rounded-3xl border border-border hover:border-primary/50 transition-all duration-300 flex flex-col items-center justify-center shadow-sm"
                       whileHover={{ y: -4 }}
                       transition={{ duration: 0.2 }}
                     >
@@ -232,9 +246,9 @@ const SoftwareSection = () => {
                       >
                         <area.icon size={32} className="text-white drop-shadow-lg" strokeWidth={2} />
                       </motion.div>
-                      <h4 className="text-white font-semibold mb-3 text-lg">{area.title}</h4>
-                      <p className="text-zinc-400 text-sm leading-relaxed font-light mb-4">{area.shortDesc}</p>
-                      <div className="mt-auto flex items-center gap-2 text-xs text-neon-purple">
+                      <h4 className="text-foreground font-semibold mb-3 text-lg">{area.title}</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed font-light mb-4">{area.shortDesc}</p>
+                      <div className="mt-auto flex items-center gap-2 text-xs text-accent">
                         <span>Click to learn more</span>
                         <ExternalLink size={12} />
                       </div>
@@ -244,7 +258,7 @@ const SoftwareSection = () => {
                   {/* Back of Card */}
                   <div className="absolute w-full h-full backface-hidden rotate-y-180">
                     <motion.div
-                      className="h-full p-6 bg-gradient-to-br from-zinc-900 to-zinc-950 backdrop-blur-xl rounded-3xl border border-zinc-700/50 flex flex-col"
+                      className="h-full p-6 bg-card backdrop-blur-xl rounded-3xl border border-border flex flex-col shadow-lg"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: flippedCards[index] ? 1 : 0 }}
                       transition={{ delay: 0.2 }}
@@ -254,7 +268,7 @@ const SoftwareSection = () => {
                           <area.icon size={24} className="text-white" strokeWidth={2} />
                         </div>
                         <button 
-                          className="text-zinc-400 hover:text-white transition-colors"
+                          className="text-muted-foreground hover:text-foreground transition-colors"
                           onClick={(e) => {
                             e.stopPropagation();
                             toggleCard(index);
@@ -263,13 +277,13 @@ const SoftwareSection = () => {
                           <X size={20} />
                         </button>
                       </div>
-                      <h4 className="text-white font-semibold mb-3 text-base">{area.title}</h4>
-                      <p className="text-zinc-300 text-xs leading-relaxed mb-4 flex-grow">{area.fullDesc}</p>
+                      <h4 className="text-foreground font-semibold mb-3 text-base">{area.title}</h4>
+                      <p className="text-muted-foreground text-xs leading-relaxed mb-4 flex-grow">{area.fullDesc}</p>
                       <div className="space-y-2">
-                        <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Key Features:</p>
+                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Key Features:</p>
                         <div className="grid grid-cols-2 gap-2">
                           {area.features.map((feature, idx) => (
-                            <div key={idx} className="flex items-center gap-1.5 text-xs text-zinc-400">
+                            <div key={idx} className="flex items-center gap-1.5 text-xs text-muted-foreground">
                               <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${area.color}`} />
                               <span>{feature}</span>
                             </div>
